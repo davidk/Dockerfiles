@@ -4,6 +4,16 @@ A collection of Dockerfiles for building various projects. These are manually te
 
 ### Structure
 
-This is loosely enforced, but the arrangement is usually a combination of: `github_username/project`. If it builds a project within a project, the naming can be a bit more creative.
+This is loosely enforced, but the arrangement is usually a combination of: `github_username/project`. If it builds a project within a project, the naming can be a bit more creative to indicate what it is.
 
-Every Dockerfile header contains the instructions to build the Dockerfile, so definitely look there!
+### Instructions
+
+There is a script to extract the instructions from each Dockerfile's headers. The headers are stripped of leading \#'s
+and dropped into a `README.md`. To update every README, run `docgen.sh` in th root of this repository (you may want
+to inspect it first, to see what it does).
+
+### docgen format
+
+* The first line is the header of the README
+
+* The rest of the Dockerfile (up to the `FROM <distribution>` line) ends up as the body of the README
