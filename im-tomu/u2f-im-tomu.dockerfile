@@ -5,10 +5,10 @@
 # Instructions:
 # * Download this Dockerfile
 # * Build the container: 
-# $ docker build -t u2f-autobuild -f u2f-im-tomu.dockerfile .
+# `docker build -t u2f-autobuild -f u2f-im-tomu.dockerfile .`
 #
 # * Copy the file out of the image, change :z to :rw, etc (if you've got SELinux)
-# $ docker run --rm -v $PWD:/outside:z -it u2f-autobuild cp /chopstx/u2f/build/u2f.bin /outside
+# `docker run --rm -v $PWD:/outside:z -it u2f-autobuild cp /chopstx/u2f/build/u2f.bin /outside`
 # 
 # * Follow the instructions here to complete flashing to your tomu
 # https://github.com/im-tomu/chopstx/tree/efm32/u2f#flashing

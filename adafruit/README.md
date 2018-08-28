@@ -4,7 +4,7 @@ https://github.com/adafruit/Adafruit_CircuitPython_RGB_Display
 
 Instructions:
 
-$ docker build -f CircuitPython_RGB_Display.dockerfile -t rgb-display .
+`docker build -f CircuitPython_RGB_Display.dockerfile -t rgb-display .`
 
 Copying files out with docker-cp:
 
