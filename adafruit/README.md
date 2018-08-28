@@ -1,12 +1,14 @@
-# Dockerfile for: https://github.com/adafruit/Adafruit_CircuitPython_RGB_Display
+# Adafruit CircuitPython RGB Display (Python Bundle Builder)
 
-This Dockerfile will build a distribution of bundles
+https://github.com/adafruit/Adafruit_CircuitPython_RGB_Display
 
 Instructions:
+
 $ docker build -f CircuitPython_RGB_Display.dockerfile -t rgb-display .
 
 Copying files out with docker-cp:
-$ mkdir ./rgb-lib && docker cp $(docker run --name circuitpython-copy -idt rgb-display bash):/home/python ./rgb-lib/ && docker rm -f circuitpython-copy
+
+`mkdir ./rgb-lib && docker cp $(docker run --name circuitpython-copy -idt rgb-display bash):/home/python ./rgb-lib/ && docker rm -f circuitpython-copy`
 
 Bundles will land in ./rgb-lib/python/Adafruit_CircuitPython_RGB_Display/bundles
 
