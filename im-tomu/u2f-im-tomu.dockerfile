@@ -1,9 +1,11 @@
 # tomu-u2f builder
-# This Dockerfile will build firmware that turns a tomu.im into a U2F token
+# This Dockerfile will build firmware that turns a tomu.im into a U2F token.
+#
 # For more information about the tomu MCU, please visit: https://tomu.im/
 #
 # Instructions:
-# * Download this Dockerfile
+# * Download this Dockerfile: `curl https://raw.githubusercontent.com/davidk/Dockerfiles/master/im-tomu/u2f-im-tomu.dockerfile > u2f-im-tomu.dockerfile`
+#
 # * Build the container: 
 # `docker build -t u2f-autobuild -f u2f-im-tomu.dockerfile .`
 #
