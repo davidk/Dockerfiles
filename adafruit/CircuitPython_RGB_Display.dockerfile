@@ -9,7 +9,7 @@
 #
 # `mkdir ./rgb-lib && docker cp $(docker run --name circuitpython-copy -idt rgb-display bash):/home/python ./rgb-lib/ && docker rm -f circuitpython-copy`
 # 
-# Bundles will land in ./rgb-lib/python/Adafruit_CircuitPython_RGB_Display/bundles
+# Bundles will land in `./rgb-lib/python/Adafruit_CircuitPython_RGB_Display/bundles`
 
 FROM ubuntu:18.04
 

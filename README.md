@@ -1,6 +1,6 @@
 # Dockerfiles
 
-A collection of Dockerfiles for building various projects. These are manually tested at release, but things might change between then and when they're pulled down for use. So definitely file pull requests if that happens!
+A collection of Dockerfiles for building various projects (usually my own shaved yaks). These are manually tested at release, but things might change between then and when they're pulled down for use. So definitely file pull requests if that happens.
 
 ### Structure
 
@@ -14,6 +14,8 @@ to inspect it first, to see what it does).
 
 ### docgen format
 
-* The first line is the header of the README
+* The first line is the header of the README, and gets a leading \#
 
 * The rest of the Dockerfile (up to the `FROM <distribution>` line) ends up as the body of the README
+
+* Anything that is a system path or command ends up nicely formatted if its enclosed by backticks: \`\`
