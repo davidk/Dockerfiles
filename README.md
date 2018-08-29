@@ -6,15 +6,15 @@ A collection of Dockerfiles for building various projects (usually my own shaved
 
 This is loosely enforced, but the arrangement is usually a combination of: `github_username/project`. If it builds a project within a project, the naming can be a bit more creative to indicate what it is.
 
-### Instructions
+### Instructions / docgen format
 
 There is a script to extract the instructions from each Dockerfile's headers. The headers are stripped of leading \#'s
 and dropped into a `README.md`. To update every README, run `docgen.sh` in the root of this repository (you may want
 to inspect it first, to see what it does).
 
-### docgen format
+The docgen script makes the following assumptions:
 
-The docgen isn't a special parser or something, but it expects this:
+* Each Dockerfile has a `.dockerfile` postfix
 
 * The first line is the header of the README, and gets a leading \# added to make it a title
 
