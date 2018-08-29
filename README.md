@@ -9,13 +9,15 @@ This is loosely enforced, but the arrangement is usually a combination of: `gith
 ### Instructions
 
 There is a script to extract the instructions from each Dockerfile's headers. The headers are stripped of leading \#'s
-and dropped into a `README.md`. To update every README, run `docgen.sh` in th root of this repository (you may want
+and dropped into a `README.md`. To update every README, run `docgen.sh` in the root of this repository (you may want
 to inspect it first, to see what it does).
 
 ### docgen format
 
-* The first line is the header of the README, and gets a leading \#
+The docgen isn't a special parser or something, but it expects this:
+
+* The first line is the header of the README, and gets a leading \# added to make it a title
 
 * The rest of the Dockerfile (up to the `FROM <distribution>` line) ends up as the body of the README
 
-* Anything that is a system path or command ends up nicely formatted if its enclosed by backticks: \`\`
+* Markdown formatting applies to all of it, ex: line spacing and backticks (for \`shell commands, maybe\`)
