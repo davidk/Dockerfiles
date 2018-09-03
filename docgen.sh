@@ -2,6 +2,8 @@
 # This extracts the header of the Dockerfile for each project
 # and puts it into a README.md in each project's folder
 # for documentation up front
+#
+# TODO: Handle more than one Dockerfile in a directly
 
 VERSION="0.01"
 YEAH_MODE=""
