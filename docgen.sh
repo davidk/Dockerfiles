@@ -3,7 +3,7 @@
 # and puts it into a README.md in each project's folder
 # for documentation up front
 #
-# TODO: Handle more than one Dockerfile in a directly
+# TODO: Handle more than one Dockerfile in a directory
 
 VERSION="0.01"
 YEAH_MODE=""
