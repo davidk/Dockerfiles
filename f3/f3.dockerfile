@@ -9,10 +9,10 @@
 #
 # Running
 #
-# `docker run --privileged \
-# -v /replace/with/path/to/removable_media:/f3 \
-# f3 \
-# bash -c 'f3write /f3 && f3read /f3'`
+#	 docker run --privileged \
+#	 -v /replace/with/path/to/removable_media:/f3 \
+#	 f3 \
+#	 bash -c 'f3write /f3 && f3read /f3'
 #
 
 FROM ubuntu:18.04
