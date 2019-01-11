@@ -3,10 +3,16 @@
 #
 # Instructions:
 #
-# `docker build -t f3 .`
+# `docker build -f f3.dockerfile -t f3 .`
+# 
+# Mount the removable drive onto your filesystem somewhere.
 #
 # Running
-# docker run --cap-add SYS_ADMIN --device /dev/mmcblk0p1 -it f3 bash^C
+#
+# `docker run --privileged \
+# -v /replace/with/path/to/removable_media:/f3 \
+# f3 \
+# bash -c 'f3write /f3 && f3read /f3'`
 #
 
 FROM ubuntu:18.04
@@ -18,4 +24,3 @@ RUN apt-get update && \
 apt-get upgrade -y && \
 apt-get -y install f3 && \
 rm -rf /var/lib/apt/lists/*
-
