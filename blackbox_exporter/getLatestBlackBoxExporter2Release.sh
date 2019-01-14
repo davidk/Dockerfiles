@@ -60,6 +60,7 @@ cat << EOF > ${T_DIR}/Dockerfile
 
 FROM resin/armhf-alpine:3.4
 
+LABEL version="${ARCH}"
 RUN apk update && apk add curl && curl -SL -\# ${DL_LINK} > /blackbox_exporter.tar.gz \\
 EOF
 
