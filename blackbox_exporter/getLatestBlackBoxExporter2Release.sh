@@ -57,10 +57,11 @@ echo "Writing Dockerfile: ${T_DIR}/Dockerfile"
 echo
 
 cat << EOF > ${T_DIR}/Dockerfile
+FROM alpine:3.8 
 
-FROM resin/armhf-alpine:3.4
+EOF
 
-LABEL version="${ARCH}"
+cat << EOF >> ${T_DIR}/Dockerfile
 RUN apk update && apk add curl && curl -SL -\# ${DL_LINK} > /blackbox_exporter.tar.gz \\
 EOF
 
@@ -72,6 +73,18 @@ cat <<"EOF" >>${T_DIR}/Dockerfile
 && mkdir -p /etc/blackbox_exporter \
 && cp blackbox.yml /etc/blackbox_exporter/ \
 && rm -rf /${EXT_DIR} /blackbox_exporter.tar.gz
+EOF
+
+cat << EOF >> ${T_DIR}/Dockerfile
+
+FROM resin/armhf-alpine:3.4
+LABEL version="${TAG_REL}-${ARCH}"
+
+EOF
+
+cat <<"EOF" >>${T_DIR}/Dockerfile
+COPY --from=0 /bin/blackbox_exporter /bin/
+COPY --from=0 /etc/blackbox_exporter /etc/blackbox_exporter
 
 EXPOSE      9115
 ENTRYPOINT  [ "/bin/blackbox_exporter" ]

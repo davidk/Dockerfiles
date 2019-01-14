@@ -1,31 +1,12 @@
 workflow "Build Dockerfiles" {
   on = "push"
-  #resolves = ["push CircuitPython_RGB_Display", "push f3.dockerfile"]
-  resolves = ["push u2f-im-tomu.dockerfile", "push f3.dockerfile"]
+  resolves = ["push u2f-im-tomu.dockerfile", "push f3.dockerfile", "push armv7 blackbox_exporter", "push armv6 blackbox_exporter"]
 }
 
 action "login" {
   uses = "actions/docker/login@c08a5fc9e0286844156fefff2c141072048141f6"
   secrets = ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
 }
-
-#action "CircuitPython_RGB_Display.dockerfile" {
-#  uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
-#  needs = ["login"]
-#  args = "build -t circuitpython_rgb_display -f adafruit/CircuitPython_RGB_Display.dockerfile ."
-#}
-
-#action "tag CircuitPython_RGB_Display.dockerfile" {
-#  uses = "actions/docker/tag@master"
-#  needs = ["CircuitPython_RGB_Display.dockerfile"]
-#  args = "-l -s circuitpython_rgb_display keyglitch/circuitpython_rgb_display"
-#}
-
-#action "push CircuitPython_RGB_Display" {
-#  uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
-#  needs = ["tag CircuitPython_RGB_Display.dockerfile"]
-#  args = "push keyglitch/circuitpython_rgb_display"
-#}
 
 action "u2f-im-tomu.dockerfile" {
   uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
@@ -63,4 +44,64 @@ action "push f3.dockerfile" {
   args = "push keyglitch/f3"
 }
 
+action "latest armv7 blackbox_exporter" {
+  uses = "actions/bin/sh@master"
+  needs = ["login"]
+  args = ["apt-get update", "apt-get -y install curl jq", "./blackbox_exporter/getLatestBlackBoxExporter2Release.sh linux armv7 latest"]
+}
 
+action "build armv7 blackbox_exporter.dockerfile" {
+  uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
+  needs = ["latest armv7 blackbox_exporter"]
+  args = "build -t blackbox_exporter_armv7 -f /github/workspace/Dockerfile ."
+}
+
+action "autotag armv7 blackbox_exporter" {
+  uses = "actions/docker/tag@master"
+  args = "-e blackbox_exporter_armv7 keyglitch/blackbox_exporter"
+  needs = ["build armv7 blackbox_exporter.dockerfile"]
+}
+
+action "tag armv7 blackbox_exporter" {
+  uses = "actions/docker/cli@master"
+  needs = ["autotag armv7 blackbox_exporter"]
+  args = "tag blackbox_exporter_armv7 keyglitch/blackbox_exporter:armv7-$IMAGE_VERSION"
+}
+
+action "push armv7 blackbox_exporter" {
+  uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
+  needs = ["tag armv7 blackbox_exporter"]
+  args = "push keyglitch/blackbox_exporter"
+}
+
+action "latest armv6 blackbox_exporter" {
+  uses = "actions/bin/sh@master"
+  needs = ["login"]
+  args = ["apt-get update", "apt-get -y install curl jq", "./blackbox_exporter/getLatestBlackBoxExporter2Release.sh linux armv6 latest"]
+}
+
+action "build armv6 blackbox_exporter.dockerfile" {
+  uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
+  needs = ["latest armv6 blackbox_exporter"]
+  args = "build -t blackbox_exporter_armv6 -f /github/workspace/Dockerfile ."
+}
+
+action "autotag armv6 blackbox_exporter" {
+  uses = "actions/docker/tag@master"
+  args = "-e blackbox_exporter_armv6 keyglitch/blackbox_exporter"
+  needs = ["build armv6 blackbox_exporter.dockerfile"]
+}
+
+action "tag armv6 blackbox_exporter" {
+  #uses = "actions/docker/cli@master"
+  #uses = "actions/bin/sh@master"
+  uses = "actions/docker/cli@master"
+  needs = ["autotag armv6 blackbox_exporter"]
+  args = "tag blackbox_exporter_armv6 keyglitch/blackbox_exporter:armv6-$IMAGE_VERSION"
+}
+
+action "push armv6 blackbox_exporter" {
+  uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
+  needs = ["tag armv6 blackbox_exporter"]
+  args = "push keyglitch/blackbox_exporter"
+}
