@@ -19,10 +19,8 @@
 FROM ubuntu:artful
 
 RUN apt-get update && \
-apt-get install -y software-properties-common git && \
-apt-add-repository -y ppa:team-gcc-arm-embedded/ppa && \
+apt-get install -y software-properties-common git gcc-arm-none-eabi && \
 apt-get update && \
-apt-get install -y gcc-arm-embedded && \
 apt-get install -y build-essential openssl python-pip && \
 pip install --user --upgrade asn1crypto
 
