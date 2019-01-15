@@ -8,6 +8,8 @@ action "login" {
   secrets = ["DOCKER_USERNAME", "DOCKER_PASSWORD"]
 }
 
+##
+
 action "u2f-im-tomu.dockerfile" {
   uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
   needs = ["login"]
@@ -26,6 +28,8 @@ action "push u2f-im-tomu.dockerfile" {
   args = "push keyglitch/u2f-im-tomu"
 }
 
+##
+
 action "f3.dockerfile" {
   uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
   needs = ["login"]
@@ -43,6 +47,8 @@ action "push f3.dockerfile" {
   needs = ["tag f3.dockerfile"]
   args = "push keyglitch/f3"
 }
+
+##
 
 action "latest armv7 blackbox_exporter" {
   uses = "actions/bin/sh@master"
@@ -74,37 +80,7 @@ action "push armv7 blackbox_exporter" {
   args = "push keyglitch/blackbox_exporter"
 }
 
-action "latest armv6 blackbox_exporter" {
-  uses = "actions/bin/sh@master"
-  needs = ["login"]
-  args = ["apt-get update", "apt-get -y install curl jq", "./blackbox_exporter/getLatestBlackBoxExporter2Release.sh linux armv6 latest"]
-}
-
-action "build armv6 blackbox_exporter.dockerfile" {
-  uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
-  needs = ["latest armv6 blackbox_exporter"]
-  args = "build -t blackbox_exporter_armv6 -f /github/workspace/Dockerfile ."
-}
-
-action "autotag armv6 blackbox_exporter" {
-  uses = "actions/docker/tag@master"
-  args = "-e blackbox_exporter_armv6 keyglitch/blackbox_exporter"
-  needs = ["build armv6 blackbox_exporter.dockerfile"]
-}
-
-action "tag armv6 blackbox_exporter" {
-  #uses = "actions/docker/cli@master"
-  #uses = "actions/bin/sh@master"
-  uses = "actions/docker/cli@master"
-  needs = ["autotag armv6 blackbox_exporter"]
-  args = "tag blackbox_exporter_armv6 keyglitch/blackbox_exporter:armv6"
-}
-
-action "push armv6 blackbox_exporter" {
-  uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
-  needs = ["tag armv6 blackbox_exporter"]
-  args = "push keyglitch/blackbox_exporter"
-}
+##
 
 action "latest armv6 blackbox_exporter" {
   uses = "actions/bin/sh@master"
@@ -137,6 +113,8 @@ action "push armv6 blackbox_exporter" {
   needs = ["tag armv6 blackbox_exporter"]
   args = "push keyglitch/blackbox_exporter"
 }
+
+##
 
 action "latest armv6 alertmanager" {
   uses = "actions/bin/sh@master"
@@ -169,6 +147,8 @@ action "push armv6 alertmanager" {
   needs = ["tag armv6 alertmanager"]
   args = "push keyglitch/alertmanager"
 }
+
+##
 
 action "latest armv7 alertmanager" {
   uses = "actions/bin/sh@master"
