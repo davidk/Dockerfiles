@@ -1,6 +1,6 @@
 workflow "Build Dockerfiles" {
   on = "push"
-  resolves = ["push u2f-im-tomu.dockerfile", "push f3.dockerfile", "push armv7 blackbox_exporter", "push armv6 blackbox_exporter"]
+  resolves = ["push u2f-im-tomu.dockerfile", "push f3.dockerfile", "push armv7 blackbox_exporter", "push armv6 blackbox_exporter", "push armv6 alertmanager", "push armv7 alertmanager"]
 }
 
 action "login" {
