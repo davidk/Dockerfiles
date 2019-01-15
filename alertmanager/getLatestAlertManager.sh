@@ -14,10 +14,13 @@ LATEST_RELEASE_URL="${RELEASE_LIST_URL}/latest"
 
 if [[ $# -lt 3 ]]; then
 
-  echo "usage: $0 [ windows | openbsd | netbsd | linux | freebsd | darwin | dragonfly ] [ armv5 | armv6 | armv7 ] [ latest | tag ] [ external-url ]"
+  echo "usage: $0 [ windows | openbsd | netbsd | linux | freebsd | darwin | dragonfly ] [ armv5 | armv6 | armv7 ] [ latest | tag ]"
   echo
-  echo "example (latest): $0 linux armv7 latest example.com"
-  echo "example (tagged): $0 linux armv5 v0.7.0 example.com"
+  echo "example (latest): $0 linux armv7 latest"
+  echo "example (tagged): $0 linux armv5 v0.7.0"
+  echo
+  echo "set example.com to the domain you'll use to access alertmanager"
+  echo "this allows it to work from within a container"
   exit 1
 
 fi
@@ -25,7 +28,7 @@ fi
 DIST=$1
 ARCH=$2
 RELEASE=$3
-EXT_URL=$4
+#EXT_URL=$4
 
 if [[ "${RELEASE}" == "latest" ]]; then
   RELEASE_INFO=$(curl -SsL ${LATEST_RELEASE_URL})
@@ -55,10 +58,10 @@ echo "Fetching from: ${DL_LINK}"
 T_DIR=$(readlink -f .)
 
 echo "Writing Dockerfile: ${T_DIR}/Dockerfile"
+echo
 
 cat << EOF > ${T_DIR}/Dockerfile
-
-FROM resin/armhf-alpine:3.4
+FROM alpine:3.8 
 
 RUN apk update && apk add curl && curl -SL -\# ${DL_LINK} > /alertmanager.tar.gz \\
 EOF
@@ -69,18 +72,34 @@ cat <<"EOF" >>${T_DIR}/Dockerfile
 && cd ${EXT_DIR} \
 && cp alertmanager /bin/ \
 && mkdir -p /etc/alertmanager \
-&& cp simple.yml /etc/alertmanager/config.yml \
+&& cp alertmanager.yml /etc/alertmanager/config.yml \
 && rm -rf /${EXT_DIR} /alertmanager.tar.gz
+EOF
+
+cat << EOF >> ${T_DIR}/Dockerfile
+
+# docker run alertmanager \
+# --web.external-url=example.com \
+# --config.file=/etc/alertmanager/config.yml \
+# --storage.path=/alertmanager
+
+FROM resin/armhf-alpine:3.4
+LABEL version="${TAG_REL}-${ARCH}"
+
+EOF
+
+cat <<"EOF" >>${T_DIR}/Dockerfile
+COPY --from=0 /bin/alertmanager /bin/alertmanager
+COPY --from=0 /etc/alertmanager/config.yml /etc/alertmanager/config.yml
 
 EXPOSE     9093
 VOLUME     [ "/alertmanager" ]
 WORKDIR    /alertmanager
 ENTRYPOINT [ "/bin/alertmanager" ]
-CMD        [ "-config.file=/etc/alertmanager/config.yml", \
+CMD        [ "--config.file=/etc/alertmanager/config.yml", \
 EOF
 
-cat << EOF >>${T_DIR}/Dockerfile
-	         "-web.external-url=${EXT_URL}", \\
-             "-storage.path=/alertmanager" ]
+cat <<"EOF" >>${T_DIR}/Dockerfile
+             "--storage.path=/alertmanager" ]
 EOF
 echo "Finished writing Dockerfile. To build, run docker build -t alertmanager . "
