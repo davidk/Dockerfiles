@@ -14,18 +14,12 @@ action "login" {
 action "u2f-im-tomu.dockerfile" {
   uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
   needs = ["login"]
-  args = "build -t u2f-im-tomu -f im-tomu/u2f-im-tomu.dockerfile ."
-}
-
-action "tag u2f-im-tomu.dockerfile" {
-  uses = "actions/docker/tag@master"
-  needs = ["u2f-im-tomu.dockerfile"]
-  args = "-l -s u2f-im-tomu keyglitch/u2f-im-tomu"
+  args = "build -t keyglitch/u2f-im-tomu -f im-tomu/u2f-im-tomu.dockerfile ."
 }
 
 action "push u2f-im-tomu.dockerfile" {
   uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
-  needs = ["tag u2f-im-tomu.dockerfile"]
+  needs = ["u2f-im-tomu.dockerfile"]
   args = "push keyglitch/u2f-im-tomu"
 }
 
@@ -34,18 +28,12 @@ action "push u2f-im-tomu.dockerfile" {
 action "f3.dockerfile" {
   uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
   needs = ["login"]
-  args = "build -t f3 -f f3/f3.dockerfile ."
-}
-
-action "tag f3.dockerfile" {
-  uses = "actions/docker/tag@master"
-  needs = ["f3.dockerfile"]
-  args = "-l -s f3 keyglitch/f3"
+  args = "build -t keyglitch/f3 -f f3/f3.dockerfile ."
 }
 
 action "push f3.dockerfile" {
   uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
-  needs = ["tag f3.dockerfile"]
+  needs = ["f3.dockerfile"]
   args = "push keyglitch/f3"
 }
 
@@ -60,25 +48,12 @@ action "latest armv7 blackbox_exporter" {
 action "build armv7 blackbox_exporter.dockerfile" {
   uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
   needs = ["latest armv7 blackbox_exporter"]
-  args = "build -t blackbox_exporter_armv7 -f /github/workspace/Dockerfile ."
-}
-
-#action "autotag armv7 blackbox_exporter" {
-#  uses = "actions/docker/tag@master"
-#  args = "-e blackbox_exporter_armv7 keyglitch/blackbox_exporter"
-#  needs = ["build armv7 blackbox_exporter.dockerfile"]
-#}
-
-action "tag armv7 blackbox_exporter" {
-  uses = "actions/docker/cli@master"
-  needs = ["build armv7 blackbox_exporter.dockerfile"]
-#  needs = ["autotag armv7 blackbox_exporter"]
-  args = "tag blackbox_exporter_armv7 keyglitch/blackbox_exporter:armv7"
+  args = "build -t keyglitch/blackbox_exporter:armv7 -f /github/workspace/Dockerfile ."
 }
 
 action "push armv7 blackbox_exporter" {
   uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
-  needs = ["tag armv7 blackbox_exporter"]
+  needs = ["build armv7 blackbox_exporter.dockerfile"]
   args = "push keyglitch/blackbox_exporter"
 }
 
@@ -93,24 +68,11 @@ action "latest armv7 alertmanager" {
 action "build armv7 alertmanager.dockerfile" {
   uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
   needs = ["latest armv7 alertmanager"]
-  args = "build -t alertmanager_armv7 -f /github/workspace/Dockerfile ."
-}
-
-#action "autotag armv7 alertmanager" {
-#  uses = "actions/docker/tag@master"
-#  args = "-e alertmanager_armv7 keyglitch/alertmanager"
-#  needs = ["build armv7 alertmanager.dockerfile"]
-#}
-
-action "tag armv7 alertmanager" {
-  uses = "actions/docker/cli@master"
-  needs = ["build armv7 alertmanager.dockerfile"]
-#  needs = ["autotag armv7 alertmanager"]
-  args = "tag alertmanager_armv7 keyglitch/alertmanager:armv7"
+  args = "build -t keyglitch/alertmanager:armv7 -f /github/workspace/Dockerfile ."
 }
 
 action "push armv7 alertmanager" {
   uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
-  needs = ["tag armv7 alertmanager"]
+  needs = ["build armv7 alertmanager.dockerfile"]
   args = "push keyglitch/alertmanager"
 }
