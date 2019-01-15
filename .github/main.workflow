@@ -1,6 +1,7 @@
 workflow "Build Dockerfiles" {
   on = "push"
-  resolves = ["push u2f-im-tomu.dockerfile", "push f3.dockerfile", "push armv7 blackbox_exporter", "push armv6 blackbox_exporter", "push armv6 alertmanager", "push armv7 alertmanager"]
+  #resolves = ["push u2f-im-tomu.dockerfile", "push f3.dockerfile", "push armv7 blackbox_exporter", "push armv6 blackbox_exporter", "push armv6 alertmanager", "push armv7 alertmanager"]
+  resolves = ["push u2f-im-tomu.dockerfile", "push f3.dockerfile", "push armv7 blackbox_exporter", "push armv7 alertmanager"]
 }
 
 action "login" {
@@ -82,71 +83,71 @@ action "push armv7 blackbox_exporter" {
 
 ##
 
-action "latest armv6 blackbox_exporter" {
-  uses = "actions/bin/sh@master"
-  needs = ["login"]
-  args = ["apt-get update", "apt-get -y install curl jq", "./blackbox_exporter/getLatestBlackBoxExporter2Release.sh linux armv6 latest"]
-}
-
-action "build armv6 blackbox_exporter.dockerfile" {
-  uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
-  needs = ["latest armv6 blackbox_exporter"]
-  args = "build -t blackbox_exporter_armv6 -f /github/workspace/Dockerfile ."
-}
-
-action "autotag armv6 blackbox_exporter" {
-  uses = "actions/docker/tag@master"
-  args = "-e blackbox_exporter_armv6 keyglitch/blackbox_exporter"
-  needs = ["build armv6 blackbox_exporter.dockerfile"]
-}
-
-action "tag armv6 blackbox_exporter" {
-  #uses = "actions/docker/cli@master"
-  #uses = "actions/bin/sh@master"
-  uses = "actions/docker/cli@master"
-  needs = ["autotag armv6 blackbox_exporter"]
-  args = "tag blackbox_exporter_armv6 keyglitch/blackbox_exporter:armv6"
-}
-
-action "push armv6 blackbox_exporter" {
-  uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
-  needs = ["tag armv6 blackbox_exporter"]
-  args = "push keyglitch/blackbox_exporter"
-}
-
-##
-
-action "latest armv6 alertmanager" {
-  uses = "actions/bin/sh@master"
-  needs = ["login"]
-  args = ["apt-get update", "apt-get -y install curl jq", "./alertmanager/getLatestAlertManager.sh linux armv6 latest"]
-}
-
-action "build armv6 alertmanager.dockerfile" {
-  uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
-  needs = ["latest armv6 alertmanager"]
-  args = "build -t alertmanager_armv6 -f /github/workspace/Dockerfile ."
-}
-
-action "autotag armv6 alertmanager" {
-  uses = "actions/docker/tag@master"
-  args = "-e alertmanager_armv6 keyglitch/alertmanager"
-  needs = ["build armv6 alertmanager.dockerfile"]
-}
-
-action "tag armv6 alertmanager" {
-  #uses = "actions/docker/cli@master"
-  #uses = "actions/bin/sh@master"
-  uses = "actions/docker/cli@master"
-  needs = ["autotag armv6 alertmanager"]
-  args = "tag alertmanager_armv6 keyglitch/alertmanager:armv6"
-}
-
-action "push armv6 alertmanager" {
-  uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
-  needs = ["tag armv6 alertmanager"]
-  args = "push keyglitch/alertmanager"
-}
+#action "latest armv6 blackbox_exporter" {
+#  uses = "actions/bin/sh@master"
+#  needs = ["login"]
+#  args = ["apt-get update", "apt-get -y install curl jq", "./blackbox_exporter/getLatestBlackBoxExporter2Release.sh linux armv6 latest"]
+#}
+#
+#action "build armv6 blackbox_exporter.dockerfile" {
+#  uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
+#  needs = ["latest armv6 blackbox_exporter"]
+#  args = "build -t blackbox_exporter_armv6 -f /github/workspace/Dockerfile ."
+#}
+#
+#action "autotag armv6 blackbox_exporter" {
+#  uses = "actions/docker/tag@master"
+#  args = "-e blackbox_exporter_armv6 keyglitch/blackbox_exporter"
+#  needs = ["build armv6 blackbox_exporter.dockerfile"]
+#}
+#
+#action "tag armv6 blackbox_exporter" {
+#  #uses = "actions/docker/cli@master"
+#  #uses = "actions/bin/sh@master"
+#  uses = "actions/docker/cli@master"
+#  needs = ["autotag armv6 blackbox_exporter"]
+#  args = "tag blackbox_exporter_armv6 keyglitch/blackbox_exporter:armv6"
+#}
+#
+#action "push armv6 blackbox_exporter" {
+#  uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
+#  needs = ["tag armv6 blackbox_exporter"]
+#  args = "push keyglitch/blackbox_exporter"
+#}
+#
+###
+#
+#action "latest armv6 alertmanager" {
+#  uses = "actions/bin/sh@master"
+#  needs = ["login"]
+#  args = ["apt-get update", "apt-get -y install curl jq", "./alertmanager/getLatestAlertManager.sh linux armv6 latest"]
+#}
+#
+#action "build armv6 alertmanager.dockerfile" {
+#  uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
+#  needs = ["latest armv6 alertmanager"]
+#  args = "build -t alertmanager_armv6 -f /github/workspace/Dockerfile ."
+#}
+#
+#action "autotag armv6 alertmanager" {
+#  uses = "actions/docker/tag@master"
+#  args = "-e alertmanager_armv6 keyglitch/alertmanager"
+#  needs = ["build armv6 alertmanager.dockerfile"]
+#}
+#
+#action "tag armv6 alertmanager" {
+#  #uses = "actions/docker/cli@master"
+#  #uses = "actions/bin/sh@master"
+#  uses = "actions/docker/cli@master"
+#  needs = ["autotag armv6 alertmanager"]
+#  args = "tag alertmanager_armv6 keyglitch/alertmanager:armv6"
+#}
+#
+#action "push armv6 alertmanager" {
+#  uses = "actions/docker/cli@c08a5fc9e0286844156fefff2c141072048141f6"
+#  needs = ["tag armv6 alertmanager"]
+#  args = "push keyglitch/alertmanager"
+#}
 
 ##
 
