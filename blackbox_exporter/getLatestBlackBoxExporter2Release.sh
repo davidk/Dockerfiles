@@ -91,4 +91,7 @@ ENTRYPOINT  [ "/bin/blackbox_exporter" ]
 CMD         [ "--config.file=/etc/blackbox_exporter/config.yml" ]
 EOF
 
+echo "Writing version information to: ${T_DIR}/VERSION"
+echo "${TAG_REL}-${ARCH}" > "${T_DIR}/VERSION"
+
 echo "Finished writing Dockerfile. To build, run docker build -t blackbox_exporter ."

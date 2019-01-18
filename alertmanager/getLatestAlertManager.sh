@@ -102,4 +102,8 @@ EOF
 cat <<"EOF" >>${T_DIR}/Dockerfile
              "--storage.path=/alertmanager" ]
 EOF
+
+echo "Writing version information to: ${T_DIR}/VERSION"
+echo "${TAG_REL}-${ARCH}" > "${T_DIR}/ALERTMANAGER_VERSION"
+
 echo "Finished writing Dockerfile. To build, run docker build -t alertmanager . "
