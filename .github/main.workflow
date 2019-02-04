@@ -29,7 +29,7 @@ action "push f3.dockerfile" {
 action "latest armv7 blackbox_exporter" {
   uses = "actions/bin/sh@master"
   needs = ["login"]
-  args = ["apt-get update", "apt-get -y install curl jq", "./blackbox_exporter/getLatestBlackBoxExporter2Release.sh linux armv7 latest"]
+  args = ["apt-get update", "apt-get -y install curl jq", "./blackbox_exporter-arm/getLatestBlackBoxExporter2Release.sh linux armv7 latest"]
 }
 
 action "push armv7 blackbox_exporter" {
@@ -43,11 +43,25 @@ action "push armv7 blackbox_exporter" {
 action "latest armv7 alertmanager" {
   uses = "actions/bin/sh@master"
   needs = ["login"]
-  args = ["apt-get update", "apt-get -y install curl jq", "./alertmanager/getLatestAlertManager.sh linux armv7 latest"]
+  args = ["apt-get update", "apt-get -y install curl jq", "./alertmanager-arm/getLatestAlertManager.sh linux armv7 latest"]
 }
 
 action "push armv7 alertmanager" {
   uses = "davidk/docker/cli@cli-loop"
   needs = ["latest armv7 alertmanager"]
   args = ["build -t keyglitch/alertmanager:armv7 -f /github/workspace/Dockerfile .", "tag keyglitch/alertmanager:armv7 keyglitch/alertmanager:$(cat /github/workspace/ALERTMANAGER_VERSION)", "push keyglitch/alertmanager"]
+}
+
+## prometheus
+
+action "latest armv7 prometheus" {
+  uses = "actions/bin/sh@master"
+  needs = ["login"]
+  args = ["apt-get update", "apt-get -y install curl jq", "./prometheus-arm/getLatestAlertManager.sh linux armv7 latest"]
+}
+
+action "push armv7 prometheus" {
+  uses = "davidk/docker/cli@cli-loop"
+  needs = ["latest armv7 prometheus"]
+  args = ["build -t keyglitch/prometheus:armv7 -f /github/workspace/Dockerfile .", "tag keyglitch/prometheus:armv7 keyglitch/prometheus:$(cat /github/workspace/ALERTMANAGER_VERSION)", "push keyglitch/prometheus"]
 }
