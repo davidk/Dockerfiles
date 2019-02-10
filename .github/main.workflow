@@ -57,7 +57,7 @@ action "push armv7 alertmanager" {
 action "latest armv7 prometheus" {
   uses = "actions/bin/sh@master"
   needs = ["login"]
-  args = ["apt-get update", "apt-get -y install curl jq", "./prometheus-arm/getLatestAlertManager.sh linux armv7 latest"]
+  args = ["apt-get update", "apt-get -y install curl jq", "./prometheus-arm/getLatestPrometheus2Release.sh linux armv7 latest"]
 }
 
 action "push armv7 prometheus" {
