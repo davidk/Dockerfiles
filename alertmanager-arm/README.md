@@ -1,4 +1,5 @@
 # alertmanager - ARM
+[![Docker hub pulls](https://img.shields.io/docker/pulls/keyglitch/alertmanager.svg?style=plastic)](https://hub.docker.com/r/keyglitch/alertmanager)
 
 `getLatestAlertManager.sh` writes out a Dockerfile to re-pack the upstream ARM distribution into
 a Docker container. This allows `Alertmanager` to be easily pulled in for use on a Raspberry Pi (or equivalent).
