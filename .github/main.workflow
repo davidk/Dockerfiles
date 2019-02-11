@@ -63,5 +63,5 @@ action "latest armv6 prometheus" {
 action "push armv6 prometheus" {
   uses = "davidk/docker/cli-multi@cli-loop"
   needs = ["latest armv6 prometheus"]
-  args = ["build -t keyglitch/prometheus-arm:latest -f /github/workspace/Dockerfile .", "tag keyglitch/prometheus-arm:latest keyglitch/prometheus:$(cat /github/workspace/ALERTMANAGER_VERSION)", "push keyglitch/prometheus"]
+  args = ["build -t keyglitch/prometheus:latest -f /github/workspace/Dockerfile .", "tag keyglitch/prometheus:latest keyglitch/prometheus:$(cat /github/workspace/ALERTMANAGER_VERSION)", "push keyglitch/prometheus"]
 }
