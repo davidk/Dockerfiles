@@ -14,10 +14,10 @@ LATEST_RELEASE_URL="${RELEASE_LIST_URL}/latest"
 
 if [[ $# -lt 3 ]]; then
 
-  echo "usage: $0 [ windows | openbsd | netbsd | linux | freebsd | darwin | dragonfly ] [ armv5 | armv6 | armv7 ] [ latest | tag ] [ external-url ]"
+  echo "usage: $0 [ windows | openbsd | netbsd | linux | freebsd | darwin | dragonfly ] [ armv5 | armv6 | armv7 ] [ latest | tag ]"
   echo
-  echo "example (latest, for armv7): $0 linux armv7 latest example.com"
-  echo "example (tagged, version v0.7.0 for armv5): $0 linux armv5 v0.7.0 example.com"
+  echo "example (latest, for armv7): $0 linux armv7 latest"
+  echo "example (tagged, version v0.7.0 for armv5): $0 linux armv5 v0.7.0"
   exit 1
 
 fi
@@ -25,7 +25,6 @@ fi
 DIST=$1
 ARCH=$2
 RELEASE=$3
-EXT_URL=$4
 
 if [[ "${RELEASE}" == "latest" ]]; then
   RELEASE_INFO=$(curl -SsL ${LATEST_RELEASE_URL})
@@ -84,7 +83,7 @@ WORKDIR    /prometheus
 ENTRYPOINT [ "/bin/prometheus" ]
 CMD        [ "--config.file=/etc/prometheus/prometheus.yml", \
              "--storage.tsdb.path=/prometheus", \
-             "--web.external-url=${EXT_URL}", \
+             "--web.external-url=${HOSTNAME}", \
              "--web.console.libraries=/etc/prometheus/console_libraries", \
              "--web.console.templates=/etc/prometheus/consoles"]
 EOF
