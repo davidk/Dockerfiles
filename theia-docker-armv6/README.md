@@ -2,7 +2,7 @@
 
 [![Docker hub pulls](https://img.shields.io/docker/pulls/keyglitch/theia-docker-armv6.svg?style=plastic)](https://hub.docker.com/r/keyglitch/theia-docker-armv6)
 
-**Note**: This repository is not regularly built on the Docker Hub.
+**Note**: This image is not regularly built on the Docker Hub.
 
 	docker run -it -p 3000:3000 \
 	-v $(pwd):/home/project:z \
@@ -16,9 +16,9 @@ This is a Dockerfile from the [theia-apps repository](https://github.com/theia-i
 
 The Raspberry Pi 3 has a limited amount of RAM.
 
-To build this yourself, it is recommended to attach a [USB swap disk](https://raspberrypi.stackexchange.com/questions/70/how-to-set-up-swap-space) (several GB recommended), as memory/uSD write cycles are limited on the Pi 3.
+To build this yourself, it is recommended to attach a [USB swap disk](https://raspberrypi.stackexchange.com/questions/70/how-to-set-up-swap-space) (several GB recommended), as microSD write cycles are limited on the Pi 3.
 
-If you don't mind the extra wear on the uSD card, temporarily increasing `CONF_SWAPFILE` (to something like 1024) in /etc/dphys-swapfile and running `/etc/init.d/dphys-swapfile restart` will work too.
+If you don't mind the extra wear on the microSD card, temporarily increasing `CONF_SWAPFILE` (to something like 1024) in /etc/dphys-swapfile and running `/etc/init.d/dphys-swapfile restart` will work too.
 
 ### Grab the Dockerfile for this locally
 
