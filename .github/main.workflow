@@ -1,6 +1,6 @@
 workflow "Build Dockerfiles" {
   on = "push"
-  resolves = ["push u2f-im-tomu.dockerfile", "push f3.dockerfile", "push armv7 blackbox_exporter", "push armv7 alertmanager", "push armv7 prometheus"]
+  resolves = ["push u2f-im-tomu.dockerfile", "push f3.dockerfile", "push armv6 blackbox_exporter", "push armv6 alertmanager", "push armv6 prometheus"]
 }
 
 action "login" {
@@ -26,42 +26,42 @@ action "push f3.dockerfile" {
 
 ## blackbox_exporter
 
-action "latest armv7 blackbox_exporter" {
+action "latest armv6 blackbox_exporter" {
   uses = "actions/bin/sh@master"
   needs = ["login"]
-  args = ["apt-get update", "apt-get -y install curl jq", "./blackbox_exporter-arm/getLatestBlackBoxExporter2Release.sh linux armv7 latest"]
+  args = ["apt-get update", "apt-get -y install curl jq", "./blackbox_exporter-arm/getLatestBlackBoxExporter2Release.sh linux armv6 latest"]
 }
 
-action "push armv7 blackbox_exporter" {
+action "push armv6 blackbox_exporter" {
   uses = "davidk/docker/cli-multi@cli-loop"
-  needs = ["latest armv7 blackbox_exporter"]
-  args = ["build -t keyglitch/blackbox_exporter:armv7 -f /github/workspace/Dockerfile .", "tag keyglitch/blackbox_exporter:armv7 keyglitch/blackbox_exporter:$(cat /github/workspace/VERSION)", "push keyglitch/blackbox_exporter"]
+  needs = ["latest armv6 blackbox_exporter"]
+  args = ["build -t keyglitch/blackbox_exporter:latest -f /github/workspace/Dockerfile .", "tag keyglitch/blackbox_exporter:latest keyglitch/blackbox_exporter:$(cat /github/workspace/VERSION)", "push keyglitch/blackbox_exporter"]
 }
 
 ## alertmanager
 
-action "latest armv7 alertmanager" {
+action "latest armv6 alertmanager" {
   uses = "actions/bin/sh@master"
   needs = ["login"]
-  args = ["apt-get update", "apt-get -y install curl jq", "./alertmanager-arm/getLatestAlertManager.sh linux armv7 latest"]
+  args = ["apt-get update", "apt-get -y install curl jq", "./alertmanager-arm/getLatestAlertManager.sh linux armv6 latest"]
 }
 
-action "push armv7 alertmanager" {
+action "push armv6 alertmanager" {
   uses = "davidk/docker/cli-multi@cli-loop"
-  needs = ["latest armv7 alertmanager"]
-  args = ["build -t keyglitch/alertmanager:armv7 -f /github/workspace/Dockerfile .", "tag keyglitch/alertmanager:armv7 keyglitch/alertmanager:$(cat /github/workspace/ALERTMANAGER_VERSION)", "push keyglitch/alertmanager"]
+  needs = ["latest armv6 alertmanager"]
+  args = ["build -t keyglitch/alertmanager:latest -f /github/workspace/Dockerfile .", "tag keyglitch/alertmanager:latest keyglitch/alertmanager:$(cat /github/workspace/ALERTMANAGER_VERSION)", "push keyglitch/alertmanager"]
 }
 
 ## prometheus
 
-action "latest armv7 prometheus" {
+action "latest armv6 prometheus" {
   uses = "actions/bin/sh@master"
   needs = ["login"]
-  args = ["apt-get update", "apt-get -y install curl jq", "./prometheus-arm/getLatestPrometheus2Release.sh linux armv7 latest"]
+  args = ["apt-get update", "apt-get -y install curl jq", "./prometheus-arm/getLatestPrometheus2Release.sh linux armv6 latest"]
 }
 
-action "push armv7 prometheus" {
+action "push armv6 prometheus" {
   uses = "davidk/docker/cli-multi@cli-loop"
-  needs = ["latest armv7 prometheus"]
-  args = ["build -t keyglitch/prometheus:armv7 -f /github/workspace/Dockerfile .", "tag keyglitch/prometheus:armv7 keyglitch/prometheus:$(cat /github/workspace/ALERTMANAGER_VERSION)", "push keyglitch/prometheus"]
+  needs = ["latest armv6 prometheus"]
+  args = ["build -t keyglitch/prometheus-arm:latest -f /github/workspace/Dockerfile .", "tag keyglitch/prometheus-arm:latest keyglitch/prometheus:$(cat /github/workspace/ALERTMANAGER_VERSION)", "push keyglitch/prometheus"]
 }
