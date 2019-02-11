@@ -59,7 +59,7 @@ echo
 # Split the Dockerfile HEREDOC so that ${DL_LINK} can be re-written
 cat << EOF > ${T_DIR}/Dockerfile
 
-FROM resin/armhf-alpine:3.4
+FROM alpine:3.8
 
 RUN apk update && apk add curl && curl -SL -\# ${DL_LINK} > /prometheus.tar.gz \\
 EOF
@@ -76,6 +76,21 @@ cat <<"EOF" >>${T_DIR}/Dockerfile
 && cp -a consoles/ /etc/prometheus \
 && mkdir -p /etc/prometheus \
 && rm -rf /${EXT_DIR} /prometheus.tar.gz
+EOF
+
+cat << EOF >> ${T_DIR}/Dockerfile
+
+FROM resin/armhf-alpine:3.4
+LABEL version="${TAG_REL}-${ARCH}"
+
+EOF
+
+cat << EOF >> ${T_DIR}/Dockerfile
+COPY --from=0 /bin/prometheus /bin/
+COPY --from=0 /bin/promtool /bin/
+COPY --from=0 /etc/prometheus/prometheus.yml /etc/prometheus/prometheus.yml
+COPY --from=0 /etc/prometheus/console_libraries/ /etc/prometheus/console_libraries/
+COPY --from=0 /etc/prometheus/consoles/ /etc/prometheus/consoles/
 
 EXPOSE     9090
 VOLUME     [ "/prometheus" ]
