@@ -55,7 +55,8 @@ fi
 echo "Tag version: ${TAG_REL}"
 echo "Fetching from: ${DL_LINK}"
 
-T_DIR=$(readlink -f .)
+T_DIR="$(readlink -f .)/alertmanager"
+mkdir -p ${T_DIR}
 
 echo "Writing Dockerfile: ${T_DIR}/Dockerfile"
 echo
@@ -104,6 +105,6 @@ cat <<"EOF" >>${T_DIR}/Dockerfile
 EOF
 
 echo "Writing version information to: ${T_DIR}/VERSION"
-echo "${TAG_REL}-${ARCH}" > "${T_DIR}/ALERTMANAGER_VERSION"
+echo "${TAG_REL}-${ARCH}" > "${T_DIR}/VERSION"
 
 echo "Finished writing Dockerfile. To build, run docker build -t alertmanager . "

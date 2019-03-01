@@ -1,0 +1,13 @@
+#!/bin/sh
+
+if [ -z "$1" ]; then
+    echo "create_user [username]"
+    echo "or"
+    echo "create_user [username] [password]"
+    exit 1
+fi
+
+echo "Fetching apache2-utils for htpasswd .."
+apk add --no-cache --update apache2-utils
+
+htpasswd -s $PASSWORD_FILE $1 $2

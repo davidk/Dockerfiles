@@ -51,7 +51,8 @@ fi
 echo "Tag version: ${TAG_REL}"
 echo "Fetching from: ${DL_LINK}"
 
-T_DIR=$(readlink -f .)
+T_DIR="$(readlink -f .)/blackbox_exporter"
+mkdir -p ${T_DIR}
 
 echo "Writing Dockerfile: ${T_DIR}/Dockerfile"
 echo

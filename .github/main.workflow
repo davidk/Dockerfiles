@@ -1,6 +1,6 @@
 workflow "Build Dockerfiles" {
   on = "push"
-  resolves = ["push u2f-im-tomu.dockerfile", "push f3.dockerfile", "push armv6 blackbox_exporter", "push armv6 alertmanager", "push armv6 prometheus"]
+  resolves = ["push u2f-im-tomu.dockerfile", "push f3.dockerfile", "push armv6 blackbox_exporter", "push armv6 alertmanager", "push armv6 prometheus", "push arm rest-server-arm"]
 }
 
 action "login" {
@@ -35,7 +35,7 @@ action "latest armv6 blackbox_exporter" {
 action "push armv6 blackbox_exporter" {
   uses = "davidk/docker/cli-multi@cli-loop"
   needs = ["latest armv6 blackbox_exporter"]
-  args = ["build -t keyglitch/blackbox_exporter:latest -f /github/workspace/Dockerfile .", "tag keyglitch/blackbox_exporter:latest keyglitch/blackbox_exporter:$(cat /github/workspace/VERSION)", "push keyglitch/blackbox_exporter"]
+  args = ["build -t keyglitch/blackbox_exporter:latest -f /github/workspace/blackbox_exporter/Dockerfile .", "tag keyglitch/blackbox_exporter:latest keyglitch/blackbox_exporter:$(cat /github/workspace/blackbox_exporter/VERSION)", "push keyglitch/blackbox_exporter"]
 }
 
 ## alertmanager
@@ -49,7 +49,7 @@ action "latest armv6 alertmanager" {
 action "push armv6 alertmanager" {
   uses = "davidk/docker/cli-multi@cli-loop"
   needs = ["latest armv6 alertmanager"]
-  args = ["build -t keyglitch/alertmanager:latest -f /github/workspace/Dockerfile .", "tag keyglitch/alertmanager:latest keyglitch/alertmanager:$(cat /github/workspace/ALERTMANAGER_VERSION)", "push keyglitch/alertmanager"]
+  args = ["build -t keyglitch/alertmanager:latest -f /github/workspace/alertmanager/Dockerfile .", "tag keyglitch/alertmanager:latest keyglitch/alertmanager:$(cat /github/workspace/alertmanager/VERSION)", "push keyglitch/alertmanager"]
 }
 
 ## prometheus
@@ -63,5 +63,19 @@ action "latest armv6 prometheus" {
 action "push armv6 prometheus" {
   uses = "davidk/docker/cli-multi@cli-loop"
   needs = ["latest armv6 prometheus"]
-  args = ["build -t keyglitch/prometheus:latest -f /github/workspace/Dockerfile .", "tag keyglitch/prometheus:latest keyglitch/prometheus:$(cat /github/workspace/ALERTMANAGER_VERSION)", "push keyglitch/prometheus"]
+  args = ["build -t keyglitch/prometheus:latest -f /github/workspace/prometheus/Dockerfile .", "tag keyglitch/prometheus:latest keyglitch/prometheus:$(cat /github/workspace/prometheus/VERSION)", "push keyglitch/prometheus"]
+}
+
+## rest-server-arm
+
+action "latest rest-server-arm" {
+  uses = "actions/bin/sh@master"
+  needs = ["login"]
+  args = ["apt-get update", "apt-get -y install curl jq", "./rest-server-arm/getLatestRestServer2Release.sh linux arm latest", "cp -a ./rest-server-arm/docker $PWD"]
+}
+
+action "push arm rest-server-arm" {
+  uses = "davidk/docker/cli-multi@cli-loop"
+  needs = ["latest rest-server-arm"]
+  args = ["build -t keyglitch/rest-server-arm:latest -f /github/workspace/rest-server-arm/Dockerfile .", "tag keyglitch/rest-server-arm:latest keyglitch/rest-server-arm:$(cat /github/workspace/rest-server-arm/VERSION)", "push keyglitch/rest-server-arm"]
 }
