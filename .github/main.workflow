@@ -1,6 +1,6 @@
 workflow "Build Dockerfiles" {
   on = "push"
-  resolves = ["push u2f-im-tomu.dockerfile", "push f3.dockerfile", "push armv6 blackbox_exporter", "push armv6 alertmanager", "push armv6 prometheus", "push arm rest-server-arm", "push arm minio-arm"]
+  resolves = ["push u2f-im-tomu.dockerfile", "push f3.dockerfile", "push armv6 blackbox_exporter", "push armv6 alertmanager", "push armv6 prometheus", "push arm rest-server-arm", "push lego-arm", "push arm minio-arm"]
 }
 
 action "login" {
@@ -92,4 +92,18 @@ action "push arm minio-arm" {
   uses = "davidk/docker/cli-multi@cli-loop"
   needs = ["latest minio-arm"]
   args = ["build -t keyglitch/minio-arm:latest -f /github/workspace/minio-arm/Dockerfile .", "tag keyglitch/minio-arm:latest keyglitch/minio-arm:$(cat /github/workspace/minio-arm/VERSION)", "push keyglitch/minio-arm"]
+}
+
+## lego-arm
+
+action "latest lego-arm" {
+  uses = "actions/bin/sh@master"
+  needs = ["login"]
+  args = ["apt-get update", "apt-get -y install curl jq", "./lego-arm/getLatestLego2Release.sh linux armv7 latest"]
+}
+
+action "push lego-arm" {
+  uses = "davidk/docker/cli-multi@cli-loop"
+  needs = ["latest lego-arm"]
+  args = ["build -t keyglitch/lego-arm:latest -f /github/workspace/lego-arm/Dockerfile .", "tag keyglitch/lego-arm:latest keyglitch/lego-arm:$(cat /github/workspace/lego-arm/VERSION)", "push keyglitch/lego-arm"]
 }
