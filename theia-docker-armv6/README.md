@@ -22,7 +22,8 @@ If you don't mind the extra wear on the microSD card, temporarily increasing `CO
 
 ### Grab the Dockerfile for this locally
 
-mkdir theia-docker-armv6 && \
-cd theia-docker-armv6 && \
-curl -sSL https://raw.githubusercontent.com/davidk/Dockerfiles/master/theia-docker-armv6/Dockerfile > Dockerfile && \
-docker build -t theia-docker-armv6 .
+	mkdir theia-docker-armv6 && \
+	cd theia-docker-armv6 && \
+	curl -sSL https://raw.githubusercontent.com/theia-ide/theia-apps/master/theia-docker/latest.package.json > latest.package.json && \
+	curl -sSL https://raw.githubusercontent.com/davidk/Dockerfiles/master/theia-docker-armv6/Dockerfile > Dockerfile && \
+	docker build -t theia-docker-armv6 .
