@@ -1,6 +1,6 @@
 workflow "Build Dockerfiles" {
   on = "push"
-  resolves = ["push u2f-im-tomu.dockerfile", "push f3.dockerfile", "push armv6 blackbox_exporter", "push armv6 alertmanager", "push armv6 prometheus", "push arm rest-server-arm"]
+  resolves = ["push u2f-im-tomu.dockerfile", "push f3.dockerfile", "push armv6 blackbox_exporter", "push armv6 alertmanager", "push armv6 prometheus", "push arm rest-server-arm", "push arm minio-arm"]
 }
 
 action "login" {
@@ -78,4 +78,18 @@ action "push arm rest-server-arm" {
   uses = "davidk/docker/cli-multi@cli-loop"
   needs = ["latest rest-server-arm"]
   args = ["build -t keyglitch/rest-server-arm:latest -f /github/workspace/rest-server-arm/Dockerfile .", "tag keyglitch/rest-server-arm:latest keyglitch/rest-server-arm:$(cat /github/workspace/rest-server-arm/VERSION)", "push keyglitch/rest-server-arm"]
+}
+
+## minio-arm
+
+action "latest minio-arm" {
+  uses = "actions/bin/sh@master"
+  needs = ["login"]
+  args = [""apt-get update", "apt-get -y install curl jq", "./minio-arm/getLatestMinio2Release.sh linux arm latest"]
+}
+
+action "push arm minio-arm" {
+  uses = "davidk/docker/cli-multi@cli-loop"
+  needs = ["latest minio-arm"]
+  // args = ["build -t keyglitch/rest-server-arm:latest -f /github/workspace/rest-server-arm/Dockerfile .", "tag keyglitch/rest-server-arm:latest keyglitch/rest-server-arm:$(cat /github/workspace/rest-server-arm/VERSION)", "push keyglitch/rest-server-arm"]
 }
