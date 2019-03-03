@@ -85,11 +85,11 @@ action "push arm rest-server-arm" {
 action "latest minio-arm" {
   uses = "actions/bin/sh@master"
   needs = ["login"]
-  args = [""apt-get update", "apt-get -y install curl jq", "./minio-arm/getLatestMinio2Release.sh linux arm latest"]
+  args = ["apt-get update", "apt-get -y install curl jq", "./minio-arm/getLatestMinio2Release.sh latest"]
 }
 
 action "push arm minio-arm" {
   uses = "davidk/docker/cli-multi@cli-loop"
   needs = ["latest minio-arm"]
-  // args = ["build -t keyglitch/rest-server-arm:latest -f /github/workspace/rest-server-arm/Dockerfile .", "tag keyglitch/rest-server-arm:latest keyglitch/rest-server-arm:$(cat /github/workspace/rest-server-arm/VERSION)", "push keyglitch/rest-server-arm"]
+  args = ["build -t keyglitch/minio-arm:latest -f /github/workspace/minio-arm/Dockerfile .", "tag keyglitch/minio-arm:latest keyglitch/minio-arm:$(cat /github/workspace/minio-arm/VERSION)", "push keyglitch/minio-arm"]
 }

@@ -79,7 +79,7 @@ EOF
 cat << EOF >> ${T_DIR}/Dockerfile
 
 COPY --from=0 /go/bin/linux_arm/minio /usr/bin/
-CMD [ "/usr/bin/minio ]
+CMD [ "/usr/bin/minio" ]
 
 EOF
 

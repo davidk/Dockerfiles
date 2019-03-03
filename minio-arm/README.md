@@ -1,6 +1,6 @@
 # minio-arm
 
-ARMified Minio in a container.
+ARMified Minio in a container. This directory contains a script that downloads and generates Dockerized minio distributions based on releases.
 
 An example `minio` run, with four disks and an Lets Encrypt certificate 
 provisioned with Lego   
