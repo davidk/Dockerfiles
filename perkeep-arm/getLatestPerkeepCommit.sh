@@ -17,7 +17,7 @@ if [[ $# -lt 1 ]]; then
   echo "usage: $0 [ commit ]"
   echo
   echo "example (head): $0 HEAD"
- # echo "example (latest): $0 acb8676d2d10776eef862d64b842b4dfb53446b9"
+  echo "example (commit): $0 acb8676d2d10776eef862d64b842b4dfb53446b9"
   echo
   exit 1
 
@@ -41,7 +41,6 @@ mkdir -p ${T_DIR}
 echo "Writing Dockerfile: ${T_DIR}/Dockerfile"
 echo
 
-# Split the Dockerfile HEREDOC so that ${DL_LINK} can be re-written
 cat << EOF > ${T_DIR}/Dockerfile
 FROM golang:1.11-alpine
 
@@ -75,4 +74,4 @@ EOF
 echo "Writing version information to: ${T_DIR}/VERSION"
 echo "${COMMIT_HASH}" > "${T_DIR}/VERSION"
 
-echo "Finished writing Dockerfile. To build, run: cd perkeep-arm && docker build -t minio . "
+echo "Finished writing Dockerfile. To build, run: cd perkeep-arm && docker build -t perkeep-arm . "
