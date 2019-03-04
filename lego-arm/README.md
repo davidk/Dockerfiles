@@ -1,5 +1,8 @@
 # Lego
 
+[![Docker hub pulls](https://img.shields.io/docker/pulls/keyglitch/lego-arm.svg?style=plastic)](https://hub.docker.com/r/keyglitch/lego-arm)
+
+
 This is a Dockerfile to wrap [Lego](https://github.com/xenolf/lego) into an ARM container (a Let's Encrypt client in Go).
 
 ### Example invocations
@@ -10,7 +13,7 @@ This is a Dockerfile to wrap [Lego](https://github.com/xenolf/lego) into an ARM 
 	-v $HOME/.config/lego:/.lego \
 	-e CLOUDFLARE_EMAIL="REPLACE_ME@example.com" \
 	-e CLOUDFLARE_API_KEY="REPLACE_ME" \
-	keyglitch/arm-storage:lego-latest \
+	keyglitch/lego-arm:latest \
 	--email="REPLACE_ME@example.com" \
 	--domains="REPLACE_ME.example.com" \
 	--dns="cloudflare" \
@@ -25,7 +28,7 @@ This is a Dockerfile to wrap [Lego](https://github.com/xenolf/lego) into an ARM 
 	-v $HOME/.config/lego:/.lego \
 	-e CLOUDFLARE_EMAIL="REPLACE_ME@example.com" \
 	-e CLOUDFLARE_API_KEY="REPLACE_ME" \
-	keyglitch/arm-storage:lego-latest \
+	keyglitch/lego-arm:latest \
 	--email="REPLACE_ME@example.com" \
 	--domains="REPLACE_ME.example.com" \
 	--dns="cloudflare" \

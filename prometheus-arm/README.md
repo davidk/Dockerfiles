@@ -1,5 +1,7 @@
 # prometheus - ARM
 
+[![Docker hub pulls](https://img.shields.io/docker/pulls/keyglitch/prometheus.svg?style=plastic)](https://hub.docker.com/r/keyglitch/prometheus)
+
 ## Running the image from the Docker Hub
 
 	docker run -p 9090:9090 keyglitch/prometheus

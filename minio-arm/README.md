@@ -1,5 +1,7 @@
 # minio-arm
 
+[![Docker hub pulls](https://img.shields.io/docker/pulls/keyglitch/minio-arm.svg?style=plastic)](https://hub.docker.com/r/keyglitch/minio-arm)
+
 ARMified Minio in a container. This directory contains a script that downloads and generates Dockerized minio distributions based on releases.
 
 An example `minio` run, with four disks and an Lets Encrypt certificate 
@@ -19,4 +21,4 @@ To run with a four disk configuration:
     --restart unless-stopped \
     --memory=1GB \
     --cpuset-cpus 4-7 \
-    keyglitch/arm-storage:minio-latest server /export /export2 /export3 /export4
+    keyglitch/minio-arm:latest server /export /export2 /export3 /export4
