@@ -1,6 +1,6 @@
 workflow "Build Dockerfiles" {
   on = "push"
-  resolves = ["push u2f-im-tomu.dockerfile", "push f3.dockerfile", "push armv6 blackbox_exporter", "push armv6 alertmanager", "push armv6 prometheus", "push arm rest-server-arm", "push lego-arm", "push arm minio-arm"]
+  resolves = ["push u2f-im-tomu.dockerfile", "push f3.dockerfile", "push armv6 blackbox_exporter", "push armv6 alertmanager", "push armv6 prometheus", "push arm rest-server-arm", "push lego-arm", "push arm minio-arm", "push perkeep-arm"]
 }
 
 action "login" {
@@ -106,4 +106,18 @@ action "push lego-arm" {
   uses = "davidk/docker/cli-multi@cli-loop"
   needs = ["latest lego-arm"]
   args = ["build -t keyglitch/lego-arm:latest -f /github/workspace/lego-arm/Dockerfile .", "tag keyglitch/lego-arm:latest keyglitch/lego-arm:$(cat /github/workspace/lego-arm/VERSION)", "push keyglitch/lego-arm"]
+}
+
+## perkeep-arm
+
+action "latest perkeep-arm" {
+  uses = "actions/bin/sh@master"
+  needs = ["login"]
+  args = ["apt-get update", "apt-get -y install curl jq", "./perkeep-arm/getLatestPerkeepCommit.sh HEAD"]
+}
+
+action "push perkeep-arm" {
+  uses = "davidk/docker/cli-multi@cli-loop"
+  needs = ["latest perkeep-arm"]
+  args = ["build -t keyglitch/perkeep-arm:latest -f /github/workspace/perkeep-arm/Dockerfile .", "tag keyglitch/perkeep-arm:latest keyglitch/perkeep-arm:$(cat /github/workspace/perkeep-arm/VERSION)", "push keyglitch/perkeep-arm"]
 }
