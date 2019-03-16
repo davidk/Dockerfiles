@@ -1,4 +1,5 @@
 # F3 - Fight Flash Fraud
+# [![Docker hub pulls](https://img.shields.io/docker/pulls/keyglitch/f3.svg?style=plastic)](https://hub.docker.com/r/keyglitch/f3)
 # https://github.com/AltraMayor/f3
 #
 # Instructions:
