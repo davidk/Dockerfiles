@@ -4,14 +4,14 @@
 
 This directory contains a script to build and repack upstream Perkeep into a Docker image that is suitable for running on ARM-based systems. Note that it isn't intended for direct consumption; only if you're curious about what the plumbing looks like.
 
-To grab and run the Docker image (assuming you are using Lets Encrypt):
+To grab and run the Docker image (assuming Lets Encrypt):
 
 	docker run -d -p 0.0.0.0:3179:3179 \
 	  --name perkeep \
-	  -v $HOME/.config/lego/certificates/$HOSTNAME.key:/home/perkeep/.config/perkeep/certs/private.key \
-	  -v $HOME/.config/lego/certificates/$HOSTNAME.crt:/home/perkeep/.config/perkeep/certs/public.crt \
-	  -v $HOME/.config/perkeep:/.config/perkeep/ \
-	  -v /media/disk/perkeep_files:/var/perkeep \
+	  -v $HOME/.config/lego/certificates/$HOSTNAME.key:/root/.config/perkeep/certs/private.key \
+	  -v $HOME/.config/lego/certificates/$HOSTNAME.crt:/root/.config/perkeep/certs/public.crt \
+	  -v $HOME/.config/perkeep:/root/.config/perkeep/ \
+	  -v /media/disk/perkeep_files:/root/var/perkeep \
 	  --restart unless-stopped \
 	  keyglitch/perkeep-arm:latest
 
