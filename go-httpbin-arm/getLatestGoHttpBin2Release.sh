@@ -35,7 +35,7 @@ echo "Generating Dockerfile for commit at ${RELEASE} .."
 
 COMMIT_HASH=$(echo "${RELEASE_INFO}" | jq -r ".sha")
 
-T_DIR="$(readlink -f .)/go-httpbin"
+T_DIR="$(readlink -f .)/go-httpbin-arm"
 mkdir -p ${T_DIR}
 
 echo "Writing Dockerfile: ${T_DIR}/Dockerfile"
@@ -76,4 +76,4 @@ EOF
 echo "Writing version information to: ${T_DIR}/VERSION"
 echo "${COMMIT_HASH}" > "${T_DIR}/VERSION"
 
-echo "Finished writing Dockerfile. To build, run: cd go-httpbin && docker build -t go-httpbin . "
+echo "Finished writing Dockerfile. To build, run: cd go-httpbin-arm && docker build -t go-httpbin-arm . "

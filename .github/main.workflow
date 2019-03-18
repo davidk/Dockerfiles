@@ -1,6 +1,6 @@
 workflow "Build Dockerfiles" {
   on = "push"
-  resolves = ["push u2f-im-tomu.dockerfile", "push f3.dockerfile", "push armv6 blackbox_exporter", "push armv6 alertmanager", "push armv6 prometheus", "push arm rest-server-arm", "push lego-arm", "push arm minio-arm", "push perkeep-arm", "push go-httpbin"]
+  resolves = ["push u2f-im-tomu.dockerfile", "push f3.dockerfile", "push armv6 blackbox_exporter", "push armv6 alertmanager", "push armv6 prometheus", "push arm rest-server-arm", "push lego-arm", "push arm minio-arm", "push perkeep-arm", "push go-httpbin-arm"]
 }
 
 action "login" {
@@ -124,14 +124,14 @@ action "push perkeep-arm" {
 
 ## push go-httpbin
 
-action "latest go-httpbin" {
+action "latest go-httpbin-arm" {
   uses = "actions/bin/sh@master"
   needs = ["login"]
-  args = ["apt-get update", "apt-get -y install curl jq", "./go-httpbin/getLatestGoHttpBin2Release.sh HEAD"]
+  args = ["apt-get update", "apt-get -y install curl jq", "./go-httpbin-arm/getLatestGoHttpBin2Release.sh HEAD"]
 }
 
-action "push go-httpbin" {
+action "push go-httpbin-arm" {
   uses = "davidk/docker/cli-multi@cli-loop"
-  needs = ["latest go-httpbin"]
-  args = ["build -t keyglitch/go-httpbin:latest -f /github/workspace/go-httpbin/Dockerfile .", "tag keyglitch/go-httpbin:latest keyglitch/go-httpbin:$(cat /github/workspace/go-httpbin/VERSION)", "push keyglitch/go-httpbin"]
+  needs = ["latest go-httpbin-arm"]
+  args = ["build -t keyglitch/go-httpbin-arm:latest -f /github/workspace/go-httpbin-arm/Dockerfile .", "tag keyglitch/go-httpbin-arm:latest keyglitch/go-httpbin-arm:$(cat /github/workspace/go-httpbin-arm/VERSION)", "push keyglitch/go-httpbin-arm"]
 }
