@@ -16,7 +16,7 @@ Shutting down/cleaning up:
 
 # Dockerfile generator
 
-`getLatestGoHttpBin2Release.sh` writes out a Dockerfile to re-pack the upstream ARM distribution into a Docker container. This allows `go-httpbin` to be easily pulled in for use on a Raspberry Pi (or equivalent).
+`getLatestGoHttpBin2Release.sh` writes out a Dockerfile to re-pack the upstream distribution into an ARM Docker container. This allows `go-httpbin` to be easily pulled in for use on a Raspberry Pi (or equivalent).
 
 This script isn't intended for use by an end user (unless you want to generate your own Dockerfile, or see how the pieces fit together).
 
