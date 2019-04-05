@@ -1,6 +1,6 @@
 workflow "Build Dockerfiles" {
-  on = "push"
   resolves = ["push u2f-im-tomu.dockerfile", "push f3.dockerfile", "push armv6 blackbox_exporter", "push armv6 alertmanager", "push armv6 prometheus", "push arm rest-server-arm", "push lego-arm", "push arm minio-arm", "push perkeep-arm", "push go-httpbin-arm"]
+  on = "schedule(0 21 * * *)"
 }
 
 action "login" {
