@@ -60,6 +60,9 @@ FROM golang:alpine
 
 ENV GOARCH arm
 ENV CGO_ENABLED 0
+ENV GO111MODULE on
+
+RUN apk add --no-cache git
 
 RUN wget ${DL_LINK} && \
 mkdir -p /go/src/github.com/minio/ && \
