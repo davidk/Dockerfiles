@@ -56,7 +56,7 @@ echo
 
 # Split the Dockerfile HEREDOC so that ${DL_LINK} can be re-written
 cat << EOF > ${T_DIR}/Dockerfile
-FROM golang:alpine
+FROM golang:1.12-alpine
 
 ENV GOARCH arm
 ENV CGO_ENABLED 0
