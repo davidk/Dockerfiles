@@ -27,10 +27,6 @@ BERGUP
 
 }
 
-if [[ "${YEAH_MODE}" == "yeeeeeah" ]]; then
-  echo -e "﻿( •_•)>⌐■-■ (⌐■_■)"
-fi
-
 for df in $PWD/*/*.dockerfile; do
   let LN=0
   
@@ -59,7 +55,3 @@ for df in $PWD/*/*.dockerfile; do
   done < "$df"
 
 done
-
-if [[ "${YEAH_MODE}" == "yeeeeeah" ]]; then
-  echo -e "(⌐■_■) ( •_•)>⌐■-■"
-fi

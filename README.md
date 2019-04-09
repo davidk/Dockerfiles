@@ -1,16 +1,17 @@
 # Dockerfiles
 
-A collection of Dockerfiles for building various projects (usually my own shaved yaks). These are manually tested at release, but things might change between then and when they're pulled down for use. Please file issues/pull requests if that happens.
+A collection of Dockerfiles for building various projects, with an ARM twist (sometimes). These are manually tested at release, but things might change between then and when they're pulled down for use. 
+
+I'll try to keep things working as time allows, but please file issues/pull requests if things break, so that we can figure it out together.
 
 ### Structure
 
 The arrangement is a combination of: `github_username/project`.
 
-### Instructions
+### docgen instructions
 
-There is a simple script to extract the instructions from each Dockerfile's headers. The headers are stripped of leading \#'s
-and dropped into a `README.md`. To update every README, run `docgen.sh` in the root of this repository (you may want
-to inspect it first, to see what it does).
+There is a simple script in the root of this repository to extract the instructions from each Dockerfile's headers. The headers are stripped of leading \#'s
+and dropped into a `README.md`. To update every README, run `docgen.sh` in the root of this repository (you may want to inspect it first, to see what it does).
 
 The docgen script makes the following assumptions:
 
