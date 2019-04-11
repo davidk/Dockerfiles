@@ -68,7 +68,7 @@ RUN wget ${DL_LINK} && \
 mkdir -p /go/src/github.com/minio/ && \
 tar -xvf ${TAG_REL} && \
 mv ./minio-minio*/ /go/src/github.com/minio/minio && \
-/usr/local/go/bin/go install github.com/minio/minio
+/usr/local/go/bin/go install -v -ldflags "$(go run buildscripts/gen-ldflags.go)" github.com/minio/minio
 
 EOF
 

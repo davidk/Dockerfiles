@@ -5,9 +5,7 @@
 ARMified Minio in a container. This directory contains a script that downloads and generates Dockerized minio distributions based on releases.
 
 An example `minio` run, with four disks and an Lets Encrypt certificate 
-provisioned with Lego   
-
-To run with a four disk configuration:
+provisioned with Lego:  
 
     docker run -d -p 0.0.0.0:9000:9000 \
     --name minio \
