@@ -8,6 +8,8 @@ I'll try to keep things working as time allows, but please file issues/pull requ
 
 The arrangement is a combination of: `github_username/project`.
 
+ARM specific Dockerfiles are typically marked with an `-arm` postfix.
+
 ### docgen instructions
 
 There is a simple script in the root of this repository to extract the instructions from each Dockerfile's headers. The headers are stripped of leading \#'s
