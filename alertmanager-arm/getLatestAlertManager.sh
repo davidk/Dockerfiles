@@ -107,4 +107,4 @@ EOF
 echo "Writing version information to: ${T_DIR}/VERSION"
 echo "${TAG_REL}-${ARCH}" > "${T_DIR}/VERSION"
 
-echo "Finished writing Dockerfile. To build, run docker build -t alertmanager . "
+echo "Finished writing Dockerfile. To build, run cd alertmanager && docker build -t alertmanager . "
