@@ -67,9 +67,13 @@ RUN apk add --no-cache git
 RUN wget ${DL_LINK} && \
 mkdir -p /go/src/github.com/minio/ && \
 tar -xvf ${TAG_REL} && \
-mv ./minio-minio*/ /go/src/github.com/minio/minio && \
-/usr/local/go/bin/go install github.com/minio/minio
+mv ./minio-minio*/ /go/src/github.com/minio/minio
 
+EOF
+
+cat <<"EOF" >> ${T_DIR}/Dockerfile
+WORKDIR /go/src/github.com/minio/minio
+RUN go install -v -ldflags "$(go run buildscripts/gen-ldflags.go)"
 EOF
 
 cat << EOF >> ${T_DIR}/Dockerfile
