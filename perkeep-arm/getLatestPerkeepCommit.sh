@@ -42,7 +42,7 @@ echo "Writing Dockerfile: ${T_DIR}/Dockerfile"
 echo
 
 cat << EOF > ${T_DIR}/Dockerfile
-FROM golang:1.11-alpine
+FROM golang:1.12-alpine
 
 ENV CGO_ENABLED 0
 
