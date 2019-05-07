@@ -1,5 +1,5 @@
 workflow "Build Dockerfiles" {
-  resolves = ["buildpush u2f-im-tomu.dockerfile", "buildpush f3.dockerfile", "buildpush armv6 blackbox_exporter", "buildpush armv6 alertmanager", "buildpush armv6 prometheus", "buildpush arm rest-server-arm", "buildpush lego-arm", "buildpush arm minio-arm", "buildpush perkeep-arm", "buildpush go-httpbin-arm"]
+  resolves = ["buildpush f3.dockerfile", "buildpush armv6 blackbox_exporter", "buildpush armv6 alertmanager", "buildpush armv6 prometheus", "buildpush arm rest-server-arm", "buildpush lego-arm", "buildpush arm minio-arm", "buildpush perkeep-arm", "buildpush go-httpbin-arm"]
   on = "schedule(0 8 * * *)"
 }
 
@@ -9,14 +9,6 @@ action "login" {
     "DOCKER_USERNAME",
     "DOCKER_PASSWORD",
   ]
-}
-
-## tomu u2f
-
-action "buildpush u2f-im-tomu.dockerfile" {
-  uses = "davidk/docker/cli-multi@cli-loop"
-  needs = ["login"]
-  args = ["build -t keyglitch/u2f-im-tomu -f im-tomu/u2f-im-tomu.dockerfile .", "push keyglitch/u2f-im-tomu"]
 }
 
 ## f3
