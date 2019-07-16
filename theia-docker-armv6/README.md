@@ -16,7 +16,7 @@ This is a Dockerfile from the [theia-apps repository](https://github.com/theia-i
 
 The Raspberry Pi 3 has a limited amount of RAM.
 
-To build this yourself, it is recommended to attach a [USB swap disk](https://raspberrypi.stackexchange.com/questions/70/how-to-set-up-swap-space) (several GB recommended), as microSD write cycles are limited on the Pi 3.
+To build this yourself, it is recommended to attach a [USB swap disk](https://raspberrypi.stackexchange.com/questions/70/how-to-set-up-swap-space) (several GB recommended), as microSD write (P/E) cycles are a finite resource.
 
 If you don't mind the extra wear on the microSD card, temporarily increasing `CONF_SWAPFILE` (to something like 1024) in /etc/dphys-swapfile and running `/etc/init.d/dphys-swapfile restart` will work too.
 
