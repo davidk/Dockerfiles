@@ -2,7 +2,7 @@
 
 [![Docker hub pulls](https://img.shields.io/docker/pulls/keyglitch/rest-server-arm.svg?style=plastic)](https://hub.docker.com/r/keyglitch/rest-server-arm)
 
-This folder contains a script to re-pack the rest-server ARM release. It is intended for use with devices such as the Raspberry Pis and Odroids.
+This folder contains a script to re-pack the rest-server ARM release. This is intended for use with Raspberry Pi/Odroid single board computers.
 
 Docker Hub: `docker pull keyglitch/rest-server-arm`
 
