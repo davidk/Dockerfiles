@@ -1,7 +1,7 @@
+name: 'Dockerfiles'
 on:
   schedule:
   - cron: 0 8 * * *
-name: Build Dockerfiles
 jobs:
   build_dockerfiles:
     name: build_dockerfiles
@@ -12,7 +12,7 @@ jobs:
       env:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-        
+
     # https://github.com/actions/checkout
     - uses: actions/checkout@master
     
@@ -124,9 +124,9 @@ jobs:
       uses: actions/docker/cli-multi@a73395b
       with:
         args: '"build -t keyglitch/f3 -f f3/f3.dockerfile ." "push keyglitch/f3"'
-        
-    - name: buildpush u2f-im-tomu.dockerfile
-      uses: actions/docker/cli-multi@a73395b
-      with:
-        args: '"build -t keyglitch/u2f-im-tomu -f im-tomu/u2f-im-tomu.dockerfile ."
-          "push keyglitch/u2f-im-tomu"'
+
+# - name: buildpush u2f-im-tomu.dockerfile
+#   uses: actions/docker/cli-multi@a73395b
+#   with:
+#     args: '"build -t keyglitch/u2f-im-tomu -f im-tomu/u2f-im-tomu.dockerfile ."
+#       "push keyglitch/u2f-im-tomu"'
