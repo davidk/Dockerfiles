@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: login
-      uses: actions/docker/login@master
+      uses: davidk/docker/login@master
       env:
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -63,68 +63,68 @@ jobs:
           linux armv6 latest"'
           
     - name: buildpush go-httpbin-arm
-      uses: actions/docker/cli-multi@a73395b
+      uses: davidk/docker/cli-multi@a73395b
       with:
         args: '"build -t keyglitch/go-httpbin-arm:latest -f /github/workspace/go-httpbin-arm/Dockerfile
           ." "tag keyglitch/go-httpbin-arm:latest keyglitch/go-httpbin-arm:$(cat /github/workspace/go-httpbin-arm/VERSION)"
           "push keyglitch/go-httpbin-arm"'
           
     - name: buildpush perkeep-arm
-      uses: actions/docker/cli-multi@a73395b
+      uses: davidk/docker/cli-multi@a73395b
       with:
         args: '"build -t keyglitch/perkeep-arm:latest -f /github/workspace/perkeep-arm/Dockerfile
           ." "tag keyglitch/perkeep-arm:latest keyglitch/perkeep-arm:$(cat /github/workspace/perkeep-arm/VERSION)"
           "push keyglitch/perkeep-arm"'
           
     - name: buildpush arm minio-arm
-      uses: actions/docker/cli-multi@a73395b
+      uses: davidk/docker/cli-multi@a73395b
       with:
         args: '"build -t keyglitch/minio-arm:latest -f /github/workspace/minio-arm/Dockerfile
           ." "tag keyglitch/minio-arm:latest keyglitch/minio-arm:$(cat /github/workspace/minio-arm/VERSION)"
           "push keyglitch/minio-arm"'
           
     - name: buildpush lego-arm
-      uses: actions/docker/cli-multi@a73395b
+      uses: davidk/docker/cli-multi@a73395b
       with:
         args: '"build -t keyglitch/lego-arm:latest -f /github/workspace/lego-arm/Dockerfile
           ." "tag keyglitch/lego-arm:latest keyglitch/lego-arm:$(cat /github/workspace/lego-arm/VERSION)"
           "push keyglitch/lego-arm"'
           
     - name: buildpush arm rest-server-arm
-      uses: actions/docker/cli-multi@a73395b
+      uses: davidk/docker/cli-multi@a73395b
       with:
         args: '"build -t keyglitch/rest-server-arm:latest -f /github/workspace/rest-server-arm/Dockerfile
           ." "tag keyglitch/rest-server-arm:latest keyglitch/rest-server-arm:$(cat
           /github/workspace/rest-server-arm/VERSION)" "push keyglitch/rest-server-arm"'
           
     - name: buildpush armv6 prometheus
-      uses: actions/docker/cli-multi@a73395b
+      uses: davidk/docker/cli-multi@a73395b
       with:
         args: '"build -t keyglitch/prometheus:latest -f /github/workspace/prometheus/Dockerfile
           ." "tag keyglitch/prometheus:latest keyglitch/prometheus:$(cat /github/workspace/prometheus/VERSION)"
           "push keyglitch/prometheus"'
           
     - name: buildpush armv6 alertmanager
-      uses: actions/docker/cli-multi@a73395b
+      uses: davidk/docker/cli-multi@a73395b
       with:
         args: '"build -t keyglitch/alertmanager:latest -f /github/workspace/alertmanager/Dockerfile
           ." "tag keyglitch/alertmanager:latest keyglitch/alertmanager:$(cat /github/workspace/alertmanager/VERSION)"
           "push keyglitch/alertmanager"'
           
     - name: buildpush armv6 blackbox_exporter
-      uses: actions/docker/cli-multi@a73395b
+      uses: davidk/docker/cli-multi@a73395b
       with:
         args: '"build -t keyglitch/blackbox_exporter:latest -f /github/workspace/blackbox_exporter/Dockerfile
           ." "tag keyglitch/blackbox_exporter:latest keyglitch/blackbox_exporter:$(cat
           /github/workspace/blackbox_exporter/VERSION)" "push keyglitch/blackbox_exporter"'
           
     - name: buildpush f3.dockerfile
-      uses: actions/docker/cli-multi@a73395b
+      uses: davidk/docker/cli-multi@a73395b
       with:
         args: '"build -t keyglitch/f3 -f f3/f3.dockerfile ." "push keyglitch/f3"'
 
 # - name: buildpush u2f-im-tomu.dockerfile
-#   uses: actions/docker/cli-multi@a73395b
+#   uses: davidk/docker/cli-multi@a73395b
 #   with:
 #     args: '"build -t keyglitch/u2f-im-tomu -f im-tomu/u2f-im-tomu.dockerfile ."
 #       "push keyglitch/u2f-im-tomu"'
