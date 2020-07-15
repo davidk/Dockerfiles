@@ -73,7 +73,7 @@ EOF
 
 cat <<"EOF" >> ${T_DIR}/Dockerfile
 WORKDIR /go/src/github.com/minio/minio
-RUN go install -v -ldflags "$(GOARCH=arm go run buildscripts/gen-ldflags.go)"
+RUN go install -v -ldflags "$(go run buildscripts/gen-ldflags.go)"
 EOF
 
 cat << EOF >> ${T_DIR}/Dockerfile
