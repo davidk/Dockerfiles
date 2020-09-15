@@ -34,12 +34,12 @@ fi
 
 echo "Building Docker image for ${DIST} (ver ${RELEASE} on arch ${ARCH}).."
 
-DL_LINK=$(echo "${RELEASE_INFO}" | jq -r ".assets[] | .browser_download_url | select(test(\"rest-server-.+.${DIST}-${ARCH}.gz\"))")
+DL_LINK=$(echo "${RELEASE_INFO}" | jq -r ".assets[] | .browser_download_url | select(test(\"rest-server_.+_${DIST}_${ARCH}.tar.gz\"))")
 
 TAG_REL=$(echo "${RELEASE_INFO}" | jq -r ".tag_name | select(test(\"^v[0-9].*[0-9]$\"))")
 
 if [[ -z "${TAG_REL}" || -z "${DL_LINK}" ]]; then
-  echo "Unable to get download link or tag version. Will not continue. Tried to grab rest-server-.+.${DIST}-${ARCH}.gz"
+  echo "Unable to get download link or tag version. Will not continue. Tried to grab rest-server_.+_${DIST}_${ARCH}.tar.gz"
   echo
   echo "Tag output: ${TAG_REL}"
   echo "Download link output: ${DL_LINK}"
