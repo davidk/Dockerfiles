@@ -42,7 +42,7 @@ jobs:
       uses: actions/bin/sh@master
       with:
         args: '"apt-get update" "apt-get -y install curl jq" "./rest-server-arm/getLatestRestServer2Release.sh
-          linux arm latest" "cp -a ./rest-server-arm/docker $PWD"'
+          linux armv6 latest" "cp -a ./rest-server-arm/docker $PWD"'
           
     - name: latest armv6 prometheus
       uses: actions/bin/sh@master
