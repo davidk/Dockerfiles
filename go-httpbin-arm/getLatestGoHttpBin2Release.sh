@@ -53,7 +53,7 @@ git clone https://github.com/mccutchen/go-httpbin && \
 cd go-httpbin && \
 git checkout ${COMMIT_HASH} && \
 ls && \
-make deps && \
+make assets && \
 GOARCH=arm make
 EOF
 
