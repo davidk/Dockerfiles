@@ -66,11 +66,11 @@ jobs:
         docker tag keyglitch/perkeep-arm:latest keyglitch/perkeep-arm:$(cat /home/runner/work/Dockerfiles/Dockerfiles/perkeep-arm/VERSION) && \
         docker push keyglitch/perkeep-arm
           
-#    - name: build image and push for arm minio-arm
-#      run: |
-#        docker build -t keyglitch/minio-arm:latest -f /home/runner/work/Dockerfiles/Dockerfiles/minio-arm/Dockerfile . && \
-#        docker tag keyglitch/minio-arm:latest keyglitch/minio-arm:$(cat /home/runner/work/Dockerfiles/Dockerfiles/minio-arm/VERSION) && \
-#        docker push keyglitch/minio-arm
+    - name: build image and push for arm minio-arm
+      run: |
+        docker build -t keyglitch/minio-arm:latest -f /home/runner/work/Dockerfiles/Dockerfiles/minio-arm/Dockerfile . && \
+        docker tag keyglitch/minio-arm:latest keyglitch/minio-arm:$(cat /home/runner/work/Dockerfiles/Dockerfiles/minio-arm/VERSION) && \
+        docker push keyglitch/minio-arm
           
     - name: build image and push for lego-arm
       run: |
