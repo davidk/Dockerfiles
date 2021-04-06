@@ -56,7 +56,7 @@ echo
 
 # Split the Dockerfile HEREDOC so that ${DL_LINK} can be re-written
 cat << EOF > ${T_DIR}/Dockerfile
-FROM golang:1.13.1-alpine
+FROM golang:1.16.3-alpine3.13
 
 ENV GOARCH arm
 ENV CGO_ENABLED 0
@@ -78,7 +78,7 @@ EOF
 
 cat << EOF >> ${T_DIR}/Dockerfile
 
-FROM resin/armhf-alpine:3.4
+FROM balenalib/armv7hf-alpine
 LABEL version="${TAG_REL}"
 
 EOF
