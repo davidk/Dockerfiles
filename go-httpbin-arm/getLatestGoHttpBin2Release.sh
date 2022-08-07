@@ -42,7 +42,7 @@ echo "Writing Dockerfile: ${T_DIR}/Dockerfile"
 echo
 
 cat << EOF > ${T_DIR}/Dockerfile
-FROM golang:1.13.1-alpine
+FROM golang:alpine
 
 ENV CGO_ENABLED 0
 
@@ -51,9 +51,7 @@ WORKDIR /go/src/github.com/mccutchen/
 RUN apk add --no-cache git build-base && \
 git clone https://github.com/mccutchen/go-httpbin && \
 cd go-httpbin && \
-git checkout ${COMMIT_HASH} && \
 ls && \
-make assets && \
 GOARCH=arm make
 EOF
 
