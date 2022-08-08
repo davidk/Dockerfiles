@@ -52,7 +52,7 @@ RUN apk add --no-cache git build-base && \
 git clone https://github.com/mccutchen/go-httpbin && \
 cd go-httpbin && \
 ls && \
-GOARCH=arm64 make
+GOARCH=arm make
 EOF
 
 cat << EOF >> ${T_DIR}/Dockerfile
