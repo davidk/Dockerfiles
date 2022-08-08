@@ -58,7 +58,7 @@ echo "Writing Dockerfile: ${T_DIR}/Dockerfile"
 echo
 
 cat << EOF > ${T_DIR}/Dockerfile
-FROM --platform=linux/arm64 alpine:3.16.1
+FROM --platform=linux/amd64 alpine:3.16.1
 
 EOF
 

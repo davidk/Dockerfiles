@@ -62,7 +62,7 @@ echo "Writing Dockerfile: ${T_DIR}/Dockerfile"
 echo
 
 cat << EOF > ${T_DIR}/Dockerfile
-FROM --platform=linux/arm64 alpine:3.16.1
+FROM --platform=linux/amd64 alpine:3.16.1
 
 RUN apk update && apk add curl && curl -SL -\# ${DL_LINK} > /alertmanager.tar.gz \\
 EOF
