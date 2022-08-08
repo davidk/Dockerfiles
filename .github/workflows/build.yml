@@ -53,43 +53,43 @@ jobs:
     - name: build image and push for go-httpbin-arm
       run: |
         docker buildx build --platform=linux/arm64 --push \
-        -t keyglitch/go-httpbin-arm:latest keyglitch/go-httpbin-arm:$(cat /home/runner/work/Dockerfiles/Dockerfiles/go-httpbin-arm/VERSION) \
+        -t keyglitch/go-httpbin-arm:latest -t keyglitch/go-httpbin-arm:$(cat /home/runner/work/Dockerfiles/Dockerfiles/go-httpbin-arm/VERSION) \
         -f /home/runner/work/Dockerfiles/Dockerfiles/go-httpbin-arm/Dockerfile .
 
     - name: build image and push for perkeep-arm
       run: |
         docker buildx build --platform=linux/arm64 --push \
-        -t keyglitch/perkeep-arm:latest keyglitch/perkeep-arm:$(cat /home/runner/work/Dockerfiles/Dockerfiles/perkeep-arm/VERSION) \
+        -t keyglitch/perkeep-arm:latest -t keyglitch/perkeep-arm:$(cat /home/runner/work/Dockerfiles/Dockerfiles/perkeep-arm/VERSION) \
         -f /home/runner/work/Dockerfiles/Dockerfiles/perkeep-arm/Dockerfile .
 
     - name: build image and push for lego-arm
       run: |
         docker buildx build --platform=linux/arm64 --push \
-        -t keyglitch/lego-arm:latest keyglitch/lego-arm:$(cat /home/runner/work/Dockerfiles/Dockerfiles/lego-arm/VERSION) \
+        -t keyglitch/lego-arm:latest -t keyglitch/lego-arm:$(cat /home/runner/work/Dockerfiles/Dockerfiles/lego-arm/VERSION) \
         -f /home/runner/work/Dockerfiles/Dockerfiles/lego-arm/Dockerfile .
 
     - name: build image and push for arm rest-server-arm
       run: |
         docker buildx build --platform=linux/arm64 --push \
-        -t keyglitch/rest-server-arm:latest keyglitch/rest-server-arm:$(cat /home/runner/work/Dockerfiles/Dockerfiles/rest-server-arm/VERSION) \
+        -t keyglitch/rest-server-arm:latest -t keyglitch/rest-server-arm:$(cat /home/runner/work/Dockerfiles/Dockerfiles/rest-server-arm/VERSION) \
         -f /home/runner/work/Dockerfiles/Dockerfiles/rest-server-arm/Dockerfile .
 
     - name: build image and push for armv6 prometheus
       run: |
         docker buildx build --platform=linux/arm64 --push \
-        -t keyglitch/prometheus:latest keyglitch/prometheus:$(cat /home/runner/work/Dockerfiles/Dockerfiles/prometheus/VERSION) \
+        -t keyglitch/prometheus:latest -t keyglitch/prometheus:$(cat /home/runner/work/Dockerfiles/Dockerfiles/prometheus/VERSION) \
         -f /home/runner/work/Dockerfiles/Dockerfiles/prometheus/Dockerfile .
 
     - name: build image and push for armv6 alertmanager
       run: |
         docker buildx build --platform=linux/arm64 --push \
-        -t keyglitch/alertmanager:latest keyglitch/alertmanager:$(cat /home/runner/work/Dockerfiles/Dockerfiles/alertmanager/VERSION) \
+        -t keyglitch/alertmanager:latest -t keyglitch/alertmanager:$(cat /home/runner/work/Dockerfiles/Dockerfiles/alertmanager/VERSION) \
         -f /home/runner/work/Dockerfiles/Dockerfiles/alertmanager/Dockerfile .
 
     - name: build image and push for armv6 blackbox_exporter
       run: |
         docker buildx build --platform=linux/arm64 --push \
-        -t keyglitch/blackbox_exporter:latest keyglitch/blackbox_exporter:$(cat /home/runner/work/Dockerfiles/Dockerfiles/blackbox_exporter/VERSION) \
+        -t keyglitch/blackbox_exporter:latest -t keyglitch/blackbox_exporter:$(cat /home/runner/work/Dockerfiles/Dockerfiles/blackbox_exporter/VERSION) \
         -f /home/runner/work/Dockerfiles/Dockerfiles/blackbox_exporter/Dockerfile .
 
     - name: build image and push for f3.dockerfile
