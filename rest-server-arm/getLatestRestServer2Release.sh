@@ -69,7 +69,8 @@ RUN apk update \
 && chmod +x /rest-server \
 && curl -SL -\# https://raw.githubusercontent.com/restic/rest-server/master/docker/entrypoint.sh > /entrypoint.sh \
 && curl -SL -\# https://raw.githubusercontent.com/restic/rest-server/master/docker/create_user > /create_user \
-&& curl -SL -\# https://raw.githubusercontent.com/restic/rest-server/master/docker/delete_user > /delete_user
+&& curl -SL -\# https://raw.githubusercontent.com/restic/rest-server/master/docker/delete_user > /delete_user \
+&& chmod ugo+x /create_user /delete_user
 
 EOF
 
@@ -82,7 +83,7 @@ COPY --from=0 /rest-server /usr/bin/
 COPY --from=0 /entrypoint.sh /entrypoint.sh
 COPY --from=0 /*_user /usr/bin
 
-RUN chmod ugo+x /usr/bin/create_user /usr/bin/delete_user
+
 EOF
 
 cat << EOF >> ${T_DIR}/Dockerfile
