@@ -32,11 +32,11 @@ jobs:
 
     - name: get latest version for lego-arm
       run: |
-        ./lego-arm/getLatestLego2Release.sh linux armv7 latest
+        ./lego-arm/getLatestLego2Release.sh linux arm64 latest
 
     - name: get latest version for rest-server-arm
       run: |
-        ./rest-server-arm/getLatestRestServer2Release.sh linux armv7 latest && cp -a ./rest-server-arm/docker $PWD
+        ./rest-server-arm/getLatestRestServer2Release.sh linux armv7 latest
 
     - name: get latest version for armv6 prometheus
       run: |
