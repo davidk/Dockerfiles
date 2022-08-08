@@ -42,7 +42,7 @@ echo "Writing Dockerfile: ${T_DIR}/Dockerfile"
 echo
 
 cat << EOF > ${T_DIR}/Dockerfile
-FROM golang:alpine
+FROM --platform=linux/amd64 golang:alpine
 
 ENV CGO_ENABLED 0
 
@@ -57,7 +57,7 @@ EOF
 
 cat << EOF >> ${T_DIR}/Dockerfile
 
-FROM --platform=linux/arm64 alpine:3.16.1
+FROM resin/armhf-alpine:3.4
 LABEL version="${COMMIT_HASH}"
 
 EOF
