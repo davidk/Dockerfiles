@@ -14,9 +14,9 @@ LATEST_RELEASE_URL="${RELEASE_LIST_URL}/latest"
 
 if [[ $# -lt 3 ]]; then
 
-  echo "usage: $0 [ linux ] [ arm ] [ latest | tag ]"
+  echo "usage: $0 [ linux ] [ arm64 ] [ latest | tag ]"
   echo
-  echo "example (latest, for arm): $0 linux arm latest"
+  echo "example (latest, for arm): $0 linux arm64 latest"
   echo "example (tagged, version v?.?.? for arm): $0 linux arm v?.?.?"
   exit 1
 
@@ -60,22 +60,29 @@ echo
 # Split the Dockerfile HEREDOC so that ${DL_LINK} can be re-written
 cat << EOF > ${T_DIR}/Dockerfile
 
-FROM alpine:3.8
+FROM --platform=linux/arm64 alpine:3.16.1
 
 RUN apk update \
 && apk add curl \
 && curl -SL -\# ${DL_LINK} > /rest-server.gz \
 && gunzip /rest-server.gz \
-&& chmod +x /rest-server
+&& chmod +x /rest-server \
+&& curl -SL -\# https://raw.githubusercontent.com/restic/rest-server/master/docker/entrypoint.sh > /entrypoint.sh \
+&& curl -SL -\# https://raw.githubusercontent.com/restic/rest-server/master/docker/create_user > /create_user \
+&& curl -SL -\# https://raw.githubusercontent.com/restic/rest-server/master/docker/delete_user > /delete_user
+
 EOF
 
 cat << EOF >> ${T_DIR}/Dockerfile
 
-FROM resin/armhf-alpine:3.4
+FROM --platform=linux/arm64 alpine:3.16.1
 LABEL version="${TAG_REL}-${ARCH}"
 
 COPY --from=0 /rest-server /usr/bin/
+COPY --from=0 /entrypoint.sh /entrypoint.sh
+COPY --from=0 /*_user /usr/bin
 
+RUN chmod ugo+x /usr/bin/create_user /usr/bin/delete_user
 EOF
 
 cat << EOF >> ${T_DIR}/Dockerfile
@@ -83,13 +90,9 @@ cat << EOF >> ${T_DIR}/Dockerfile
 ENV DATA_DIRECTORY /data
 ENV PASSWORD_FILE /data/.htpasswd
 
-COPY docker/*_user /usr/bin/
-
 VOLUME /data
 
 EXPOSE 8000
-
-COPY docker/entrypoint.sh /entrypoint.sh
 
 CMD [ "/entrypoint.sh" ]
 EOF
@@ -97,4 +100,4 @@ EOF
 echo "Writing version information to: ${T_DIR}/VERSION"
 echo "${TAG_REL}-${ARCH}" > "${T_DIR}/VERSION"
 
-echo "Finished writing Dockerfile. To build, run docker build -t rest-server . "
+echo "Finished writing Dockerfile. To build, run cd rest-server-arm && docker build -t rest-server . "

@@ -58,7 +58,7 @@ echo "Writing Dockerfile: ${T_DIR}/Dockerfile"
 echo
 
 cat << EOF > ${T_DIR}/Dockerfile
-FROM alpine:3.8 
+FROM --platform=linux/arm64 alpine:3.16.1
 
 EOF
 
@@ -78,7 +78,7 @@ EOF
 
 cat << EOF >> ${T_DIR}/Dockerfile
 
-FROM resin/armhf-alpine:3.4
+FROM --platform=linux/arm64 alpine:3.16.1
 LABEL version="${TAG_REL}-${ARCH}"
 
 EOF
@@ -95,4 +95,4 @@ EOF
 echo "Writing version information to: ${T_DIR}/VERSION"
 echo "${TAG_REL}-${ARCH}" > "${T_DIR}/VERSION"
 
-echo "Finished writing Dockerfile. To build, run docker build -t blackbox_exporter ."
+echo "Finished writing Dockerfile. To build, run cd blackbox_exporter && docker build -t blackbox_exporter ."

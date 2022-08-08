@@ -59,7 +59,7 @@ echo
 # Split the Dockerfile HEREDOC so that ${DL_LINK} can be re-written
 cat << EOF > ${T_DIR}/Dockerfile
 
-FROM alpine:3.8
+FROM --platform=linux/arm64 alpine:3.16.1
 
 RUN apk update \
 && apk add curl \
@@ -70,7 +70,7 @@ EOF
 
 cat << EOF >> ${T_DIR}/Dockerfile
 
-FROM resin/armhf-alpine:3.4
+FROM --platform=linux/arm64 alpine:3.16.1
 LABEL version="${TAG_REL}-${ARCH}"
 
 COPY --from=0 lego /usr/bin/lego
@@ -87,4 +87,4 @@ EOF
 echo "Writing version information to: ${T_DIR}/VERSION"
 echo "${TAG_REL}-${ARCH}" > "${T_DIR}/VERSION"
 
-echo "Finished writing Dockerfile. To build, run docker build -t lego-arm . "
+echo "Finished writing Dockerfile. To build, run cd lego-arm && docker build -t lego-arm . "
