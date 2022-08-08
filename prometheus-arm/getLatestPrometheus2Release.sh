@@ -60,7 +60,7 @@ echo
 # Split the Dockerfile HEREDOC so that ${DL_LINK} can be re-written
 cat << EOF > ${T_DIR}/Dockerfile
 
-FROM alpine:3.8
+FROM --platform=linux/arm64 alpine:3.16.1
 
 RUN apk update && apk add curl && curl -SL -\# ${DL_LINK} > /prometheus.tar.gz \\
 EOF
@@ -81,7 +81,7 @@ EOF
 
 cat << EOF >> ${T_DIR}/Dockerfile
 
-FROM resin/armhf-alpine:3.4
+FROM --platform=linux/arm64 alpine:3.16.1
 LABEL version="${TAG_REL}-${ARCH}"
 
 EOF
