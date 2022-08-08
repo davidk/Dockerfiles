@@ -30,10 +30,6 @@ jobs:
       run: |
         ./perkeep-arm/getLatestPerkeepCommit.sh HEAD
           
-    - name: get latest version for minio-arm
-      run: |
-        ./minio-arm/getLatestMinio2Release.sh latest
-          
     - name: get latest version for lego-arm
       run: |
         ./lego-arm/getLatestLego2Release.sh linux armv7 latest
@@ -65,12 +61,6 @@ jobs:
         docker build -t keyglitch/perkeep-arm:latest -f /home/runner/work/Dockerfiles/Dockerfiles/perkeep-arm/Dockerfile . && \
         docker tag keyglitch/perkeep-arm:latest keyglitch/perkeep-arm:$(cat /home/runner/work/Dockerfiles/Dockerfiles/perkeep-arm/VERSION) && \
         docker push keyglitch/perkeep-arm
-          
-    - name: build image and push for arm minio-arm
-      run: |
-        docker build -t keyglitch/minio-arm:latest -f /home/runner/work/Dockerfiles/Dockerfiles/minio-arm/Dockerfile . && \
-        docker tag keyglitch/minio-arm:latest keyglitch/minio-arm:$(cat /home/runner/work/Dockerfiles/Dockerfiles/minio-arm/VERSION) && \
-        docker push keyglitch/minio-arm
           
     - name: build image and push for lego-arm
       run: |
