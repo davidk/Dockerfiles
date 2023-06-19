@@ -64,8 +64,9 @@ FROM --platform=linux/amd64 alpine:3.16.1
 
 RUN apk update \
 && apk add curl \
-&& curl -SL -\# ${DL_LINK} > /rest-server.gz \
-&& gunzip /rest-server.gz \
+&& curl -SL -\# ${DL_LINK} > /rest-server.tar.gz \
+&& tar -xvf /rest-server.tar.gz \
+&& mv /rest-server*/rest-server / \
 && curl -SL -\# https://raw.githubusercontent.com/restic/rest-server/master/docker/entrypoint.sh > /entrypoint.sh \
 && curl -SL -\# https://raw.githubusercontent.com/restic/rest-server/master/docker/create_user > /create_user \
 && curl -SL -\# https://raw.githubusercontent.com/restic/rest-server/master/docker/delete_user > /delete_user \
