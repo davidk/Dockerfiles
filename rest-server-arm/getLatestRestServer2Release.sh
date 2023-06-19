@@ -66,11 +66,10 @@ RUN apk update \
 && apk add curl \
 && curl -SL -\# ${DL_LINK} > /rest-server.gz \
 && gunzip /rest-server.gz \
-&& chmod +x /rest-server \
 && curl -SL -\# https://raw.githubusercontent.com/restic/rest-server/master/docker/entrypoint.sh > /entrypoint.sh \
 && curl -SL -\# https://raw.githubusercontent.com/restic/rest-server/master/docker/create_user > /create_user \
 && curl -SL -\# https://raw.githubusercontent.com/restic/rest-server/master/docker/delete_user > /delete_user \
-&& chmod ugo+x /create_user /delete_user
+&& chmod ugo+x /rest-server /entrypoint.sh /create_user /delete_user
 
 EOF
 
